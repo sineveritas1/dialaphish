@@ -92,9 +92,14 @@ def main():
             continue
 
         count = 0
+        skipped = 0
         for s in year_shows:
             date = (s.get("date") or s.get("show_date", ""))[:10]
             if not date or len(date) < 10:
+                continue
+            # Skip shows with no audio tracks
+            if not s.get("tracks_count") and not s.get("duration"):
+                skipped += 1
                 continue
             v = s.get("venue") or {}
             venue = s.get("venue_name") or (v.get("name", "") if isinstance(v, dict) else "") or ""
@@ -102,7 +107,7 @@ def main():
             shows_dict[date] = {"venue": venue, "city": city, "id": s.get("id", "")}
             count += 1
 
-        print(f"{count} shows", flush=True)
+        print(f"{count} shows{f' ({skipped} skipped, no audio)' if skipped else ''}", flush=True)
         total += count
 
     merged = dict(sorted({**existing, **shows_dict}.items()))
