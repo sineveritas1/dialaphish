@@ -63,18 +63,9 @@
     /* ── TOP CORNER BUTTONS ── */
     .corner-btns{
       position:absolute;top:12px;right:14px;left:14px;
-      display:flex;align-items:center;justify-content:space-between;
+      display:flex;align-items:center;justify-content:flex-end;
       z-index:200;
     }
-    .stealie-link img{
-      width:clamp(28px,7vw,36px);
-      height:clamp(28px,7vw,36px);
-      object-fit:contain;
-      opacity:0.85;
-      transition:opacity .15s,transform .15s;
-    }
-    .stealie-link:hover img{opacity:1;transform:scale(1.08);}
-
     .darkpuddle-btn{
       background:transparent;
       border:1px solid rgba(46,49,146,0.5);
@@ -502,9 +493,6 @@
 
   <!-- Corner buttons -->
   <div class="corner-btns">
-    <a class="stealie-link" href="https://dialadead.com" target="_blank" title="DIAL·A·DEAD">
-      <img src="https://res.cloudinary.com/dmbeoutyi/image/upload/v1774666557/Untitled_design_16_v575qu.png" alt="Stealie" />
-    </a>
     <button class="darkpuddle-btn" id="darkpuddle-btn" onclick="toggleDarkPuddle()">DARK PUDDLE</button>
   </div>
 
@@ -638,8 +626,7 @@
   <!-- FOOTER -->
   <div class="footer">
     <a href="https://phish.in" style="color:#333;text-decoration:none;">☆ AUDIO FROM PHISH.IN ☆</a><br><br>
-    <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a><br><br>
-    <a href="https://neondeadhead.com" style="color:#22B14C;text-decoration:none;">NEONDEADHEAD.COM</a>
+    <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a>
   </div>
 </div>
 
