@@ -417,7 +417,7 @@
 
     .show-grid{
       display:grid;grid-template-columns:1fr 1fr;gap:5px;
-      max-height:clamp(200px,35vh,260px);overflow-y:auto;
+      max-height:clamp(200px,35vh,260px);overflow-y:auto;overflow-x:hidden;
       scrollbar-width:thin;scrollbar-color:rgba(168,85,247,0.3) #E8E4D8;
     }
     .show-grid::-webkit-scrollbar{width:3px;}
@@ -426,12 +426,13 @@
 
     .show-item{
       background:#FFF;border:1px solid #DDD8C8;border-radius:6px;
-      padding:clamp(6px,2vw,8px) clamp(7px,2vw,9px);cursor:pointer;transition:all .15s;
+      padding:6px 7px;cursor:pointer;transition:all .15s;
+      min-width:0;overflow:hidden;
       display:flex;flex-direction:column;gap:3px;
     }
     .show-item:hover{border-color:rgba(247,148,30,0.4);background:rgba(247,148,30,0.04);}
     .show-item:active{background:rgba(247,148,30,0.08);}
-    .show-date{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;color:#F7941E;}
+    .show-date{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;color:#F7941E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .show-venue{font-size:10px;color:#555 !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .show-city{font-size:10px;color:var(--blue) !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .no-shows{text-align:center;color:#333;font-size:13px;padding:20px;letter-spacing:2px;grid-column:1/-1;}
