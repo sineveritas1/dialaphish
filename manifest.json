@@ -1,0 +1,16 @@
+{
+  "name": "DIAL·A·PHISH",
+  "short_name": "DIAL·A·PHISH",
+  "description": "Stream any Phish show from 1983–present. Free.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F0EDE4",
+  "theme_color": "#2E3192",
+  "icons": [
+    {
+      "src": "/phish-logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./phish-logo.png" />
+  <link rel="shortcut icon" href="./phish-logo.png" />
+  <link rel="apple-touch-icon" href="./phish-logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DIAL·A·PHISH — Stream Any Phish Show Free</title>
+  <meta name="description" content="Stream any Phish show from 1983–present. Enter a date and instantly dial in audience recordings from phish.in. Free. No account needed." />
+  <link rel="canonical" href="https://dialaphish.com/" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dialaphish.com/" />
+  <meta property="og:title" content="DIAL·A·PHISH — Stream Any Phish Show Free" />
+  <meta property="og:description" content="Enter a date. Stream the show. Every Phish recording from phish.in, free. 1983–present." />
+  <meta property="og:site_name" content="DIAL·A·PHISH" />
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DIAL·A·PHISH — Stream Any Phish Show Free" />
+  <meta name="twitter:description" content="Enter a date. Stream the show. Every Phish recording from phish.in, free." />
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#2E3192" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="DIAL·A·PHISH" />
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"DIAL·A·PHISH","url":"https://dialaphish.com/","description":"Stream any Phish show from 1983–present. Audience recordings from phish.in, free.","applicationCategory":"MusicApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"NeonDeadhead","url":"https://neondeadhead.com"}}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      /* Extracted directly from Phish logo gradient — full brightness */
+      --blue:   #2E3192;
+      --green:  #22B14C;
+      --yellow: #FFF200;
+      --orange: #F7941E;
+      --red:    #ED1C24;
+      --maroon: #8B1A3A;
+
+      --deep:   #F8F6F0;
+      --panel:  #FFFFFF;
+      --border: #DDD8C8;
+      --muted:  #C8C0A8;
+      --text:   #1A1A2E;
+      --sub:    #444455;
+    }
+
+    /* Yellow (#FFF200) is unreadable on white — text contexts use readable amber */
+    :root { --yellow-text: #A07800; }
+
+    html,body{background:#F0EDE4;min-height:100%;font-family:'JetBrains Mono',monospace;}
+    body{display:flex;justify-content:center;padding:10px;background:#F0EDE4;}
+
+    /* No background overlay */
+
+    /* ── TOP CORNER BUTTONS ── */
+    .corner-btns{
+      position:absolute;top:12px;right:14px;left:14px;
+      display:flex;align-items:center;justify-content:space-between;
+      z-index:200;
+    }
+    .stealie-link img{
+      width:clamp(28px,7vw,36px);
+      height:clamp(28px,7vw,36px);
+      object-fit:contain;
+      opacity:0.85;
+      transition:opacity .15s,transform .15s;
+    }
+    .stealie-link:hover img{opacity:1;transform:scale(1.08);}
+
+    .darkpuddle-btn{
+      background:transparent;
+      border:1px solid rgba(46,49,146,0.5);
+      color:var(--blue);
+      font-family:'JetBrains Mono',monospace;
+      font-size:10px;letter-spacing:2px;
+      padding:5px 11px;border-radius:5px;
+      cursor:pointer;transition:all .15s;
+    }
+    .darkpuddle-btn:hover{background:rgba(46,49,146,0.08);}
+
+    /* ── DARK PUDDLE MODE ── */
+    html.darkpuddle,html.darkpuddle body{background:#0A0A0F;}
+    html.darkpuddle .machine{
+      background:#111118;
+      border-color:#2A2A3A;
+      box-shadow:0 6px 30px rgba(0,0,0,0.5),0 2px 8px rgba(0,0,0,0.4);
+    }
+    html.darkpuddle .dest-panel{background:#080810;border-color:#1E1E2E;box-shadow:none;}
+    html.darkpuddle .digit-wrap{background:#0D0D1A;border-color:#2A2A3A;box-shadow:none;}
+    html.darkpuddle input.digit{color:var(--orange);}
+    html.darkpuddle input{color-scheme:dark;}
+    html.darkpuddle .dest-hint{color:#555;}
+    html.darkpuddle .sep{color:rgba(247,148,30,0.3);}
+    html.darkpuddle .btn-rnd{background:#0D0D1A;border-color:rgba(46,49,146,0.4);}
+    html.darkpuddle .btn-rnd:hover{background:#151525;}
+    html.darkpuddle .player-panel{background:#0D0D1A;border-color:#1E1E2E;box-shadow:none;}
+    html.darkpuddle .archive-toggle{background:#0D0D1A;border-color:#1E1E2E;}
+    html.darkpuddle .archive-toggle:hover{border-color:rgba(247,148,30,0.3);}
+    html.darkpuddle .archive-body{background:#0D0D1A;border-color:#1E1E2E;}
+    html.darkpuddle .show-search{background:#080810;border-color:#2A2A3A;color:#DDD;caret-color:var(--orange);}
+    html.darkpuddle .show-search::placeholder{color:#444;}
+    html.darkpuddle .show-item{background:#080810;border-color:#1E1E2E;}
+    html.darkpuddle .show-item:hover{border-color:rgba(247,148,30,0.4);background:rgba(247,148,30,0.05);}
+    html.darkpuddle .show-venue{color:#AAA !important;}
+    html.darkpuddle .track-name{color:#DDD !important;}
+    html.darkpuddle .track-item:hover{background:rgba(247,148,30,0.08);border-color:rgba(247,148,30,0.2);}
+    html.darkpuddle .track-item.active{background:rgba(247,148,30,0.12);border-color:rgba(247,148,30,0.3);}
+    html.darkpuddle .t-btn{background:#151525;border-color:#2A2A3A;color:#EEE;}
+    html.darkpuddle .t-btn:hover{background:#1E1E30;border-color:#3A3A50;}
+    html.darkpuddle .progress-wrap{background:#1A1A2A;}
+    html.darkpuddle .progress-thumb{background:#EEE;}
+    html.darkpuddle .time-display{color:#888 !important;}
+    html.darkpuddle .ytab{background:#0D0D1A;border-color:#2A2A3A;color:#666;}
+    html.darkpuddle .fave-card{background:#0D0D1A;border-color:rgba(247,148,30,0.2);}
+    html.darkpuddle .fave-card:hover{border-color:var(--orange);background:rgba(247,148,30,0.05);}
+    html.darkpuddle .fave-venue{color:#888;}
+    html.darkpuddle .faves-empty{color:#444;}
+    html.darkpuddle .no-shows{color:#555;}
+    html.darkpuddle .setup-box{background:#080810;border-color:rgba(46,49,146,0.2);}
+    html.darkpuddle .setup-box code{background:#0A0A15;border-color:#2A2A3A;color:#7AB840;}
+    html.darkpuddle .setup-box p{color:#555;}
+    html.darkpuddle .dl-warn{background:#111118;border-color:rgba(247,148,30,0.4);}
+    html.darkpuddle .dl-warn-backdrop{background:rgba(0,0,0,0.7);}
+    html.darkpuddle .footer{color:#444;}
+    html.darkpuddle .darkpuddle-btn{border-color:rgba(247,148,30,0.4);color:var(--orange);}
+    html.darkpuddle .darkpuddle-btn:hover{background:rgba(247,148,30,0.08);}
+    html.darkpuddle .btn-share{background:#0D0D1A;}
+    html.darkpuddle .btn-fave{background:#0D0D1A;}
+    html.darkpuddle .show-dl-progress{background:#1A1A2A;}
+    html.darkpuddle ::-webkit-scrollbar-track{background:#0A0A15 !important;}
+    html.darkpuddle ::-webkit-scrollbar-thumb{background:rgba(247,148,30,0.4) !important;}
+    html.darkpuddle input::placeholder{color:#333;}
+
+    /* Scanlines removed */
+
+    /* ── MACHINE ── */
+    .machine{
+      position:relative;width:100%;max-width:480px;
+      background:#FFFFFF;
+      border:2px solid #C8C2B0;
+      border-radius:20px;
+      padding:12px 12px 14px;
+      box-shadow:
+        0 6px 30px rgba(46,49,146,0.08),
+        0 2px 8px rgba(0,0,0,0.08);
+      z-index:1;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes ledpulse{0%,100%{opacity:1}50%{opacity:.2}}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes eflash{0%{opacity:1}25%{opacity:.2}50%{opacity:1}75%{opacity:.5}100%{opacity:1}}
+    @keyframes trackslide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+    /* ── HEADER ── */
+    .header{text-align:center;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;gap:5px;}
+
+    /* Phish logo */
+    .phish-logo{
+      width:clamp(95px,24vw,125px);
+      height:auto;
+      display:block;
+      filter:drop-shadow(0 2px 6px rgba(46,49,146,0.12));
+      animation:logobob 3s ease-in-out infinite;
+    }
+    @keyframes logobob{
+      0%,100%{transform:translateY(0px);}
+      50%{transform:translateY(-4px);}
+    }
+
+    .title{
+      font-family:'Syne',sans-serif;
+      font-size:clamp(18px,5.5vw,30px);
+      font-weight:800;
+      letter-spacing:clamp(1px,1vw,4px);
+      background:linear-gradient(90deg, #2E3192, #22B14C, #FFF200, #F7941E, #ED1C24);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      white-space:nowrap;
+      max-width:100%;
+      overflow:hidden;
+    }
+    .subtitle{font-size:11px;letter-spacing:3px;font-weight:700;color:#F7941E;}
+
+    /* ── DEST PANEL ── */
+    .dest-panel{
+      background:#F5F2EA;border:1.5px solid #DDD8C8;border-radius:12px;
+      padding:12px 10px 10px;margin-bottom:8px;
+      box-shadow:inset 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .dest-row{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;}
+    .dest-unit{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+    .dest-lbl{font-size:11px;letter-spacing:2px;color:var(--blue) !important;text-shadow:none;font-weight:700;}
+    .digit-wrap{
+      background:#FFFFFF;border:2px solid #D0C8B8;border-radius:8px;padding:7px 3px;width:100%;
+      box-shadow:0 1px 3px rgba(0,0,0,0.08);
+      transition:box-shadow .2s,border-color .2s;
+    }
+    .digit-wrap:focus-within{border-color:var(--orange);box-shadow:0 0 0 3px rgba(247,148,30,0.15),0 1px 3px rgba(0,0,0,0.08);}
+    input.digit{
+      background:transparent;border:none;outline:none;
+      font-family:'Syne',sans-serif;font-weight:700;
+      text-align:center;caret-color:var(--teal);
+      color:var(--orange);text-shadow:none;
+      -moz-appearance:textfield;display:block;width:100%;
+      font-size:clamp(22px,6.5vw,40px);line-height:1.15;
+    }
+    input.digit::-webkit-outer-spin-button,input.digit::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+    input.digit::placeholder{color:rgba(247,148,30,0.25);text-shadow:none;}
+    .sep{color:rgba(247,148,30,0.4);font-family:'Syne',sans-serif;font-size:clamp(22px,7vw,36px);font-weight:700;line-height:1;padding-bottom:10px;flex-shrink:0;}
+    .dest-hint{text-align:center;margin-top:10px;font-size:11px;color:#333;letter-spacing:2px;}
+
+    /* ── BUTTONS ── */
+    .btns{display:flex;gap:10px;margin-bottom:8px;}
+    .btn-rnd{
+      background:#F5F2EA;color:var(--blue);
+      border:1.5px solid rgba(46,49,146,0.3);
+      font-family:'JetBrains Mono',monospace;
+      font-size:clamp(11px,3.5vw,13px);letter-spacing:1px;
+      padding:13px clamp(10px,3vw,16px);border-radius:8px;cursor:pointer;
+      box-shadow:none;white-space:nowrap;transition:all .15s;
+    }
+    .btn-rnd:hover{background:#EAE6DA;box-shadow:0 2px 8px rgba(46,49,146,0.12);}
+    .btn-engage{
+      flex:1;background:linear-gradient(90deg, #2E3192, #22B14C, #FFF200, #F7941E, #ED1C24);color:#fff;
+      font-family:'Syne',sans-serif;font-size:clamp(13px,4vw,15px);font-weight:700;
+      letter-spacing:clamp(1px,1vw,3px);padding:13px 10px;border:none;border-radius:8px;cursor:pointer;
+      box-shadow:0 0 20px rgba(168,85,247,0.6),0 0 40px rgba(168,85,247,0.3);
+      text-shadow:none;transition:all .15s;
+    }
+    .btn-engage:hover{filter:brightness(1.1);}
+    .btn-engage:active{transform:scale(0.98);}
+
+    /* ── STATUS ── */
+    .status-panel{
+      background:transparent;border:none;padding:6px 4px;min-height:36px;
+      display:flex;align-items:center;justify-content:center;margin-bottom:8px;
+    }
+    .status{font-size:13px;text-align:center;letter-spacing:1px;line-height:1.9;color:var(--blue) !important;text-shadow:none;}
+    .status.err{color:var(--red) !important;text-shadow:none !important;}
+    .status.ok{color:var(--green) !important;text-shadow:none !important;}
+    .cursor{animation:blink 1s step-end infinite;color:var(--orange);}
+    .status .loading{display:inline-block;animation:spin .8s linear infinite;}
+
+    /* ── PLAYER PANEL ── */
+    .player-panel{
+      background:#FAFAF7;border:1.5px solid #DDD8C8;border-radius:12px;
+      padding:14px;margin-bottom:12px;display:none;
+      box-shadow:0 2px 12px rgba(0,0,0,0.06);
+    }
+    .player-panel.visible{display:block;}
+
+    /* Show info */
+    .show-date-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+    .show-nav-arrows{display:flex;gap:2px;flex-shrink:0;transform:translateY(-4px);}
+    .show-nav-btn{
+      background:transparent;border:none;outline:none;
+      color:rgba(247,148,30,0.4);font-size:clamp(22px,7vw,28px);font-weight:900;
+      font-family:'Syne',sans-serif;line-height:1;
+      -webkit-text-stroke:1.5px rgba(247,148,30,0.4);
+      cursor:pointer;padding:0 4px;border-radius:4px;
+      transition:color .15s,-webkit-text-stroke .15s;
+      -webkit-appearance:none;appearance:none;
+      display:flex;flex-direction:column;align-items:center;gap:1px;
+    }
+    .show-nav-btn:hover{color:var(--orange);-webkit-text-stroke:1.5px var(--orange);}
+    .show-nav-btn:hover .nav-label{color:var(--orange);}
+    .nav-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(247,148,30,0.4);-webkit-text-stroke:0;line-height:1;transition:color .15s;}
+
+    .show-dl-btn{
+      background:transparent;border:1px solid rgba(168,85,247,0.3);border-radius:4px;
+      color:var(--green);font-family:'JetBrains Mono',monospace;
+      font-size:10px;letter-spacing:2px;cursor:pointer;
+      padding:3px 6px;transition:color .15s,border-color .15s;white-space:nowrap;
+      -webkit-appearance:none;appearance:none;
+    }
+    .show-dl-btn:hover{color:#3A8000;border-color:#3A8000;}
+    .show-dl-btn.loading{color:var(--green);border-color:rgba(34,177,76,0.5);}
+    .dl-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--green);
+      box-shadow:0 0 4px var(--green);margin-left:5px;vertical-align:middle;animation:blink .7s step-start infinite;}
+    .show-dl-progress{display:none;height:3px;border-radius:2px;margin-top:4px;background:#E0DDD4;overflow:hidden;width:100%;}
+    .show-dl-progress.visible{display:block;}
+    .show-dl-progress-fill{height:100%;width:0%;border-radius:2px;background:var(--green);box-shadow:none;transition:width .3s ease;}
+
+    .dl-warn-backdrop{position:fixed;inset:0;background:rgba(240,237,228,0.7);backdrop-filter:blur(2px);z-index:999;display:none;}
+    .dl-warn-backdrop.visible{display:block;}
+    .dl-warn{
+      position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      background:#FFFFFF;border:1px solid rgba(247,148,30,0.3);border-radius:10px;
+      padding:18px 22px;z-index:1000;text-align:center;
+      box-shadow:0 8px 32px rgba(0,0,0,0.15);display:none;min-width:220px;
+    }
+    .dl-warn.visible{display:block;}
+    .dl-warn-msg{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--orange);margin-bottom:14px;line-height:1.6;}
+    .dl-warn-btns{display:flex;gap:8px;justify-content:center;}
+    .dl-warn-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:6px 12px;border-radius:4px;cursor:pointer;-webkit-appearance:none;appearance:none;}
+    .dl-warn-btn.cancel{background:rgba(247,148,30,0.08);border:1px solid var(--orange);color:var(--orange);}
+    .dl-warn-btn.keep{background:transparent;border:1px solid #CCC;color:#333;}
+
+    .show-date-big{
+      font-family:'Syne',sans-serif;font-size:clamp(14px,4.5vw,17px);font-weight:800;
+      color:var(--orange) !important;text-shadow:none;letter-spacing:2px;
+    }
+    .show-venue-big{font-size:14px;color:var(--blue) !important;letter-spacing:1px;margin-bottom:2px;line-height:1.4;font-weight:700;}
+    .show-meta{font-size:11px;color:#333;letter-spacing:1px;margin-bottom:14px;}
+
+    /* Transport */
+    .transport{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+    .transport-controls{display:flex;align-items:center;justify-content:center;gap:8px;}
+    .t-btn{
+      background:#F0EDE4;border:1px solid #CCC8B8;border-radius:6px;
+      color:#333;font-size:clamp(15px,4.5vw,18px);cursor:pointer;
+      width:clamp(36px,10vw,44px);height:clamp(36px,10vw,44px);
+      display:flex;align-items:center;justify-content:center;
+      transition:all .15s;flex-shrink:0;font-variant-emoji:text;
+      -webkit-appearance:none;appearance:none;outline:none;
+    }
+    .t-btn:hover{background:#E5E0D5;border-color:#AAA598;}
+    .t-btn:active{transform:scale(0.95);}
+    .t-btn.play-pause{
+      background:linear-gradient(160deg, #2E3192 0%, #22B14C 30%, #FFF200 50%, #F7941E 70%, #ED1C24 100%);border-color:var(--orange);
+      width:clamp(44px,12vw,52px);height:clamp(44px,12vw,52px);font-size:0;
+      box-shadow:0 4px 16px rgba(247,148,30,0.4),inset 0 0 0 7px var(--green);
+    }
+    .t-btn.play-pause:hover{filter:brightness(1.08);}
+    .t-btn.play-pause::before{
+      content:'';display:block;width:13px;height:14px;
+      background:linear-gradient(to right,#fff 3px,transparent 3px,transparent 10px,#fff 10px);
+      border-radius:1px;
+    }
+    .t-btn.play-pause.paused::before{
+      width:0;height:0;background:transparent;box-shadow:none;border-radius:0;
+      border-style:solid;border-width:7px 0 7px 13px;
+      border-color:transparent transparent transparent #fff;margin-left:3px;
+    }
+
+    .progress-row{display:flex;align-items:center;gap:8px;}
+    .progress-wrap{flex:1;cursor:pointer;height:10px;background:#E0DDD4;border-radius:5px;position:relative;overflow:visible;}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow),var(--orange),var(--red));border-radius:5px;width:0%;transition:width .4s linear;box-shadow:none;}
+    .progress-thumb{position:absolute;top:50%;left:0%;transform:translate(-50%,-50%);width:4px;height:20px;background:#333;border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,0.2);transition:left .4s linear;pointer-events:none;}
+    .time-display{font-size:12px;color:#666 !important;white-space:nowrap;flex-shrink:0;min-width:60px;text-align:right;}
+
+    /* Tracklist */
+    .tracklist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+    .tracklist-label{font-size:11px;color:#888 !important;letter-spacing:3px;font-weight:700;}
+    .track-count{font-size:11px;color:var(--green) !important;letter-spacing:1px;font-weight:700;}
+    .tracklist{max-height:clamp(160px,30vh,220px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(247,148,30,0.3) #E8E4D8;}
+    .tracklist::-webkit-scrollbar{width:3px;}
+    .tracklist::-webkit-scrollbar-track{background:#E8E4D8;}
+    .tracklist::-webkit-scrollbar-thumb{background:rgba(247,148,30,0.4);border-radius:2px;}
+
+    .track-item{
+      display:flex;align-items:center;gap:8px;
+      padding:clamp(8px,2.5vw,10px) 10px;border-radius:6px;cursor:pointer;
+      transition:all .12s;border:1px solid transparent;
+      animation:trackslide .15s ease forwards;
+    }
+    .track-item:hover{background:rgba(247,148,30,0.06);border-color:rgba(247,148,30,0.2);}
+    .track-item.active{background:rgba(247,148,30,0.10);border-color:rgba(247,148,30,0.30);}
+    .track-num{font-size:11px;color:#333;min-width:22px;text-align:right;flex-shrink:0;}
+    .track-item.active .track-num{color:var(--orange);}
+    .track-icon{font-size:10px;color:var(--green);width:12px;flex-shrink:0;text-shadow:none;}
+    .track-name{font-size:13px;color:#222;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.3px;}
+    .track-item.active .track-name{background:linear-gradient(90deg, #2E3192, #22B14C, #FFF200, #F7941E, #ED1C24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;}
+    .track-dur{font-size:11px;color:#333;flex-shrink:0;}
+    .track-item.active .track-dur{color:rgba(247,148,30,0.6);}
+    .track-dl{font-size:11px;color:#999;flex-shrink:0;background:none;border:none;cursor:pointer;padding:0 2px;line-height:1;transition:color .12s;}
+    .track-item:hover .track-dl{color:#333;}
+    .track-item.active .track-dl{color:rgba(247,148,30,0.5);}
+    .track-dl.loading{opacity:.4;cursor:wait;}
+
+    /* ── ARCHIVE ── */
+    .archive-toggle{
+      width:100%;background:#F5F2EA;border:1.5px solid #DDD8C8;border-radius:10px;
+      padding:12px 14px;display:flex;align-items:center;justify-content:space-between;
+      cursor:pointer;margin-bottom:0;transition:border-color .2s;
+    }
+    .archive-toggle:hover{border-color:rgba(46,49,146,0.3);}
+    .archive-toggle-label{font-size:11px;letter-spacing:3px;font-weight:700;color:#2E3192;}
+    .archive-right{display:flex;align-items:center;gap:10px;}
+    .archive-badge{font-size:11px;color:var(--green) !important;letter-spacing:1px;font-weight:700;}
+    .toggle-arrow{font-size:11px;color:var(--blue);transition:transform .25s;}
+    .toggle-arrow.open{transform:rotate(180deg);}
+    .archive-body{background:#F5F2EA;border:1.5px solid #DDD8C8;border-top:none;border-radius:0 0 10px 10px;padding:12px;display:none;margin-bottom:12px;}
+    .archive-body.open{display:block;}
+
+    .year-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+    .ytab{
+      font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;
+      padding:4px 0;width:44px;text-align:center;border:1px solid #CCC8B8;border-radius:4px;
+      cursor:pointer;background:#FFF;color:#333;transition:all .12s;
+    }
+    .ytab:hover{border-color:rgba(247,148,30,0.4);color:var(--orange);}
+    .ytab.active{background:linear-gradient(90deg, #2E3192, #22B14C, #FFF200, #F7941E, #ED1C24);border-color:var(--orange);color:#FFF;}
+    .ytab.all.active{background:linear-gradient(90deg, #2E3192, #22B14C, #FFF200, #F7941E, #ED1C24);border-color:var(--blue);color:#FFF;}
+
+    .show-search{
+      background:#FFF;border:1.5px solid #CCC8B8;border-radius:6px;
+      padding:10px 12px;width:100%;margin-bottom:10px;
+      font-family:'JetBrains Mono',monospace;font-size:14px;
+      color:#222;outline:none;caret-color:var(--orange);
+      transition:border-color .2s;
+    }
+    .show-search::placeholder{color:#444;}
+    .show-search:focus{border-color:var(--orange);}
+
+    .show-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:5px;
+      max-height:clamp(200px,35vh,260px);overflow-y:auto;
+      scrollbar-width:thin;scrollbar-color:rgba(168,85,247,0.3) #E8E4D8;
+    }
+    .show-grid::-webkit-scrollbar{width:3px;}
+    .show-grid::-webkit-scrollbar-track{background:#E8E4D8;}
+    .show-grid::-webkit-scrollbar-thumb{background:rgba(247,148,30,0.4);border-radius:2px;}
+
+    .show-item{
+      background:#FFF;border:1px solid #DDD8C8;border-radius:6px;
+      padding:clamp(6px,2vw,8px) clamp(7px,2vw,9px);cursor:pointer;transition:all .15s;
+      display:flex;flex-direction:column;gap:3px;
+    }
+    .show-item:hover{border-color:rgba(247,148,30,0.4);background:rgba(247,148,30,0.04);}
+    .show-item:active{background:rgba(247,148,30,0.08);}
+    .show-date{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;color:#F7941E;}
+    .show-venue{font-size:10px;color:#555 !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .show-city{font-size:10px;color:var(--blue) !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .no-shows{text-align:center;color:#333;font-size:13px;padding:20px;letter-spacing:2px;grid-column:1/-1;}
+
+    .setup-box{background:#F5F2EA;border:1px solid rgba(46,49,146,0.2);border-radius:8px;padding:14px;text-align:center;grid-column:1/-1;}
+    .setup-box h3{font-family:'Syne',sans-serif;font-size:11px;color:var(--blue);letter-spacing:2px;margin-bottom:10px;}
+    .setup-box code{display:block;background:#EEE;border:1px solid #CCC;border-radius:4px;padding:7px 10px;margin:5px 0;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue);text-align:left;}
+    .setup-box p{font-size:9px;color:#333;letter-spacing:1px;margin-top:8px;line-height:1.8;}
+
+    /* ── SHARE ROW ── */
+    .share-row{display:flex;justify-content:space-between;margin-bottom:14px;}
+    .btn-share{
+      background:#F5F2EA;border:1px solid rgba(34,177,76,0.4);color:var(--green);
+      font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;
+      padding:5px 12px;border-radius:5px;cursor:pointer;transition:all .15s;
+      box-shadow:none;
+    }
+    .btn-share:hover{background:#EBF5E0;box-shadow:0 2px 8px rgba(34,177,76,0.15);}
+    .btn-fave{
+      background:#F5F2EA;border:1px solid rgba(247,148,30,0.4);color:var(--orange);
+      font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;
+      padding:5px 12px;border-radius:5px;cursor:pointer;transition:all .15s;
+    }
+    .btn-fave:hover{background:#FDEEE4;border-color:var(--orange);}
+    .btn-fave.saved{background:var(--orange);border-color:var(--orange);color:#FFF;box-shadow:0 2px 8px rgba(247,148,30,0.3);}
+
+    /* ── FAVES ── */
+    .faves-section{margin-bottom:8px;}
+    .faves-header{font-family:'Syne',sans-serif;font-size:12px;letter-spacing:3px;margin-bottom:8px;text-align:center;font-weight:700;color:#F7941E;}
+    .faves-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;overflow:hidden;}
+    .fave-card{position:relative;background:#FFF;border:1px solid rgba(247,148,30,0.2);border-radius:6px;padding:8px 8px 6px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:3px;min-width:0;overflow:hidden;}
+    .fave-card:hover{border-color:var(--orange);background:rgba(247,148,30,0.04);}
+    .fave-date{font-size:11px;letter-spacing:1px;font-weight:bold;padding-right:14px;color:#F7941E;}
+    .fave-venue{font-size:10px;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .fave-city{font-size:10px;color:var(--blue);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .fave-remove{position:absolute;top:3px;right:5px;background:none;border:none;color:#999;font-size:13px;cursor:pointer;padding:0;line-height:1;transition:color .12s;}
+    .fave-remove:hover{color:var(--red);}
+    .faves-empty{color:#444;font-size:10px;letter-spacing:2px;text-align:center;padding:12px;grid-column:1/-1;}
+
+    /* ── TOASTS ── */
+    .share-toast{
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+      background:var(--green);color:#FFF;font-family:'JetBrains Mono',monospace;
+      font-size:11px;letter-spacing:2px;padding:10px 20px;border-radius:8px;
+      box-shadow:0 4px 16px rgba(34,177,76,0.4);
+      opacity:0;pointer-events:none;transition:opacity .3s;z-index:999;white-space:nowrap;
+    }
+    .share-toast.show{opacity:1;}
+    .fave-toast{
+      position:fixed;bottom:64px;left:50%;transform:translateX(-50%);
+      background:var(--blue);color:#fff;font-family:'JetBrains Mono',monospace;
+      font-size:11px;letter-spacing:2px;padding:10px 20px;border-radius:8px;
+      box-shadow:0 4px 16px rgba(247,148,30,0.4);
+      opacity:0;pointer-events:none;transition:opacity .3s;z-index:999;white-space:nowrap;
+    }
+    .fave-toast.visible{opacity:1;}
+
+    /* ── FOOTER ── */
+    .footer{text-align:center;margin-top:10px;font-size:clamp(14px,4vw,17px);letter-spacing:1px;line-height:2.6;color:#333;}
+
+    * {-webkit-tap-highlight-color:transparent;}
+    input{color-scheme:light;}
+  </style>
+</head>
+<body>
+<div class="machine">
+
+  <!-- Corner buttons -->
+  <div class="corner-btns">
+    <a class="stealie-link" href="https://dialadead.com" target="_blank" title="DIAL·A·DEAD">
+      <img src="https://res.cloudinary.com/dmbeoutyi/image/upload/v1774666557/Untitled_design_16_v575qu.png" alt="Stealie" />
+    </a>
+    <button class="darkpuddle-btn" id="darkpuddle-btn" onclick="toggleDarkPuddle()">DARK PUDDLE</button>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <img class="phish-logo" src="./phish-logo.png" alt="Phish" />
+    <div class="title">DIAL·A·PHISH</div>
+    <div class="subtitle">LIVE PHISH ARCHIVE · 1983–PRESENT</div>
+  </div>
+
+  <!-- DATE ENTRY -->
+  <div class="dest-panel">
+    <div class="dest-row">
+      <div class="dest-unit">
+        <div class="dest-lbl">MONTH</div>
+        <div class="digit-wrap">
+          <input class="digit" id="f-m" type="number" min="1" max="12" placeholder="08" inputmode="numeric" autocomplete="off" />
+        </div>
+      </div>
+      <div class="sep">/</div>
+      <div class="dest-unit">
+        <div class="dest-lbl">DAY</div>
+        <div class="digit-wrap">
+          <input class="digit" id="f-d" type="number" min="1" max="31" placeholder="17" inputmode="numeric" autocomplete="off" />
+        </div>
+      </div>
+      <div class="sep">/</div>
+      <div class="dest-unit" style="flex:1.7">
+        <div class="dest-lbl">YEAR</div>
+        <div class="digit-wrap">
+          <input class="digit" id="f-y" type="number" min="1983" max="2030" placeholder="1997" inputmode="numeric" autocomplete="off" />
+        </div>
+      </div>
+    </div>
+    <div class="dest-hint">TYPE DATE · MONTH / DAY / YEAR<br>TAP ENGAGE</div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="btns">
+    <button class="btn-rnd" id="rnd-btn" onclick="randomShow()">⚡ RANDOM</button>
+    <button class="btn-engage" id="ebtn" onclick="engage()">ENGAGE ▶</button>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-panel" id="status-panel">
+    <div class="status" id="status">
+      <span class="cursor">█</span> AWAITING DATE INPUT...
+    </div>
+  </div>
+
+  <!-- PLAYER -->
+  <div class="player-panel" id="player-panel">
+    <div class="show-date-row">
+      <div class="show-date-big" id="show-date-big"></div>
+      <div class="show-nav-arrows">
+        <button class="show-nav-btn" onclick="prevShow();this.blur()">←<span class="nav-label">PREV</span></button>
+        <button class="show-nav-btn" onclick="nextShow();this.blur()">→<span class="nav-label">NEXT</span></button>
+        <div style="display:flex;flex-direction:column;align-items:stretch;">
+          <button class="show-dl-btn" id="show-dl-btn" onclick="dlShow(this)">⬇ DL SHOW</button>
+          <div class="show-dl-progress" id="show-dl-progress">
+            <div class="show-dl-progress-fill" id="show-dl-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="show-venue-big" id="show-venue-big"></div>
+    <div class="show-meta" id="show-meta"></div>
+
+    <div class="share-row">
+      <button class="btn-fave" id="btn-fave" onclick="toggleFave()">♡ SAVE SHOW</button>
+      <button class="btn-share" onclick="shareShow()">⤴ SHARE THIS SHOW</button>
+    </div>
+
+    <div class="transport">
+      <div class="transport-controls">
+        <button class="t-btn" onclick="prevTrack()">⏮︎</button>
+        <button class="t-btn play-pause" id="play-pause-btn" onclick="togglePlay()"></button>
+        <button class="t-btn" onclick="nextTrack()">⏭︎</button>
+      </div>
+      <div class="progress-row">
+        <div class="progress-wrap" id="progress-wrap">
+          <div class="progress-fill" id="progress-fill"></div>
+          <div class="progress-thumb" id="progress-thumb"></div>
+        </div>
+        <div class="time-display" id="time-display">0:00 / 0:00</div>
+      </div>
+    </div>
+
+    <div class="tracklist-header">
+      <div class="tracklist-label">SETLIST</div>
+      <div class="track-count" id="track-count"></div>
+    </div>
+    <div class="tracklist" id="tracklist"></div>
+  </div>
+
+  <audio id="audio"></audio>
+
+  <!-- FAVE SHOWS -->
+  <div class="faves-section" id="faves-section">
+    <div class="faves-header">♥ FAVE SHOWS</div>
+    <div class="faves-grid" id="faves-grid"></div>
+  </div>
+
+  <!-- ARCHIVE -->
+  <div class="archive-toggle" onclick="toggleArchive()">
+    <div class="archive-toggle-label">☆ SHOW ARCHIVE</div>
+    <div class="archive-right">
+      <div class="archive-badge" id="archive-badge"></div>
+      <div class="toggle-arrow" id="toggle-arrow">▼</div>
+    </div>
+  </div>
+  <div class="archive-body" id="archive-body">
+    <div class="year-tabs" id="year-tabs"></div>
+    <input class="show-search" id="show-search" placeholder="SEARCH VENUE, CITY, DATE, OR SONG..." oninput="filterShows()" />
+    <div class="show-grid" id="show-grid"><div class="no-shows">⟳ LOADING...</div></div>
+  </div>
+
+  <!-- DL WARNING -->
+  <div class="dl-warn-backdrop" id="dl-warn-backdrop" onclick="keepDlShow()"></div>
+  <div class="dl-warn" id="dl-warn">
+    <div class="dl-warn-msg">⬇ DL IN PROGRESS<br>CANCEL TO CHANGE SHOW</div>
+    <div class="dl-warn-btns">
+      <button class="dl-warn-btn cancel" onclick="cancelDlShow()">✕ CANCEL DL</button>
+      <button class="dl-warn-btn keep" onclick="keepDlShow()">KEEP DL</button>
+    </div>
+  </div>
+
+  <div class="share-toast" id="share-toast">LINK COPIED!</div>
+  <div class="fave-toast" id="fave-toast"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <a href="https://phish.in" style="color:#333;text-decoration:none;">☆ AUDIO FROM PHISH.IN ☆</a><br>
+    <a href="https://neondeadhead.com" style="color:#22B14C;text-decoration:none;">NEONDEADHEAD.COM</a><br>
+    <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a>
+  </div>
+</div>
+
+<script>
+const MONTHS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+let ALL_SHOWS=[], SHOW_MAP={}, activeYear='all';
+let tracks=[], currentTrack=0, currentShow=null, loadGen=0;
+const audio=document.getElementById('audio');
+
+// ── Archive toggle ─────────────────────────────────────────────────────────
+function toggleArchive(){
+  const body=document.getElementById('archive-body');
+  const arrow=document.getElementById('toggle-arrow');
+  const open=body.classList.toggle('open');
+  arrow.classList.toggle('open',open);
+  if(open && ALL_SHOWS.length) filterShows();
+}
+
+// ── Load shows.json ────────────────────────────────────────────────────────
+async function init(){
+  try{
+    const r=await fetchWithTimeout('./shows.json',10000);
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data=await r.json();
+    SHOW_MAP=data;
+    ALL_SHOWS=Object.entries(data).map(([date,s])=>({date,...s})).sort((a,b)=>a.date.localeCompare(b.date));
+    document.getElementById('archive-badge').textContent=`${ALL_SHOWS.length} SHOWS`;
+    buildYearTabs();
+    renderShows(ALL_SHOWS);
+  }catch(e){
+    document.getElementById('archive-badge').textContent='NO DATABASE';
+    document.getElementById('show-grid').innerHTML=`
+      <div class="setup-box">
+        <h3>☠ DATABASE NOT FOUND</h3>
+        <p style="color:rgba(168,85,247,0.6);margin-bottom:8px">Run the generator to build shows.json.</p>
+        <code>python generate_phish.py</code>
+        <p>ENGAGE still works — searches phish.in live.<br>
+        RANDOM + archive need shows.json.</p>
+      </div>`;
+  }
+}
+
+// ── Year tabs ──────────────────────────────────────────────────────────────
+function buildYearTabs(){
+  const years=[...new Set(ALL_SHOWS.map(s=>s.date.slice(0,4)))].sort();
+  document.getElementById('year-tabs').innerHTML=
+    `<button class="ytab all active" onclick="setYear('all')">ALL</button>`+
+    years.map(y=>`<button class="ytab" onclick="setYear('${y}')">${y}</button>`).join('');
+}
+function setYear(y){
+  activeYear=y;
+  document.getElementById('show-search').value='';
+  document.querySelectorAll('.ytab').forEach(t=>{
+    t.classList.remove('active');
+    if((y==='all'&&t.classList.contains('all'))||t.textContent===String(y)) t.classList.add('active');
+  });
+  filterShows();
+}
+
+// ── Filter + render ────────────────────────────────────────────────────────
+let songSearchTimer=null;
+
+function filterShows(){
+  if(!ALL_SHOWS.length) return;
+  const q=(document.getElementById('show-search').value||'').toLowerCase().trim();
+  let list=ALL_SHOWS;
+  if(activeYear!=='all') list=list.filter(s=>s.date.startsWith(activeYear));
+
+  if(q){
+    const local=list.filter(s=>
+      s.date.includes(q)||
+      (s.venue||'').toLowerCase().includes(q)||
+      (s.city||'').toLowerCase().includes(q)
+    );
+    if(local.length){
+      renderShows(local);
+    } else {
+      const grid=document.getElementById('show-grid');
+      grid.innerHTML='<div class="no-shows" style="color:var(--orange);grid-column:1/-1"><span style="display:inline-block;animation:spin .8s linear infinite">\u25ba</span> SEARCHING SONGS...</div>';
+      clearTimeout(songSearchTimer);
+      songSearchTimer=setTimeout(()=>songSearch(q),500);
+    }
+  } else {
+    renderShows(list);
+  }
+}
+
+// ── Live song search via phish.in v2 /search ──────────────────────────────
+async function songSearch(term){
+  const grid=document.getElementById('show-grid');
+  try{
+    const url=`${PROXY}/search/${encodeURIComponent(term)}`;
+    const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
+    if(!r.ok) throw new Error(r.status);
+    const data=await r.json();
+    const tracks=(data.tracks||data.results||[]);
+    if(!tracks.length){
+      grid.innerHTML='<div class="no-shows">NO SONGS FOUND</div>';
+      return;
+    }
+    const seen=new Set();
+    const shows=tracks.filter(t=>{
+      const d=t.show_date||(t.show&&t.show.date)||'';
+      if(!d||seen.has(d)) return false;
+      seen.add(d); return true;
+    }).map(t=>({
+      date:  t.show_date||(t.show&&t.show.date)||'',
+      venue: t.venue_name||(t.show&&t.show.venue_name)||'',
+      city:  (t.venue&&t.venue.location)||(t.show&&t.show.venue&&t.show.venue.location)||'',
+      song:  t.title||term
+    })).filter(s=>s.date);
+    if(!shows.length){
+      grid.innerHTML='<div class="no-shows">NO SHOWS FOUND FOR THAT SONG</div>';
+      return;
+    }
+    grid.innerHTML=`<div style="font-size:11px;color:var(--orange);letter-spacing:2px;padding:6px 4px 8px;grid-column:1/-1;">\u266a ${shows.length} SHOWS WITH "${term.toUpperCase()}"</div>`+
+      shows.map(s=>{
+        const[y,m,d]=s.date.split('-').map(Number);
+        const label=`${MONTHS[m-1]} ${String(d).padStart(2,'0')} ${y}`;
+        return `<div class="show-item" onclick="dialShow('${s.date}')">
+          <div class="show-date">${label}</div>
+          <div class="show-venue">${escHtml(s.venue||'—')}</div>
+          <div class="show-city">${escHtml(s.city||'')}</div>
+        </div>`;
+      }).join('');
+  }catch(e){
+    grid.innerHTML='<div class="no-shows">SONG SEARCH UNAVAILABLE</div>';
+  }
+}
+
+function renderShows(list){
+  const grid=document.getElementById('show-grid');
+  if(!list.length){grid.innerHTML='<div class="no-shows">NO SHOWS FOUND</div>';return;}
+  grid.innerHTML=list.map(s=>{
+    const[y,m,d]=s.date.split('-').map(Number);
+    const label=`${MONTHS[m-1]} ${String(d).padStart(2,'0')} ${y}`;
+    return `<div class="show-item" onclick="dialShow('${s.date}')">
+      <div class="show-date">${label}</div>
+      <div class="show-venue">${escHtml(s.venue||'—')}</div>
+      <div class="show-city">${escHtml(s.city||'')}</div>
+    </div>`;
+  }).join('');
+}
+let dialTimer=null;
+function dialShow(dateStr){
+  if(guardShowChange(()=>dialShow(dateStr))) return;
+  const[y,m,d]=dateStr.split('-').map(Number);
+  document.getElementById('f-m').value=m;
+  document.getElementById('f-d').value=d;
+  document.getElementById('f-y').value=y;
+  document.getElementById('archive-body').classList.remove('open');
+  document.getElementById('toggle-arrow').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+  clearTimeout(dialTimer);
+  dialTimer=setTimeout(()=>engage(),300);
+}
+
+// ── Auto-tab inputs ────────────────────────────────────────────────────────
+document.getElementById('f-m').addEventListener('input',function(){if(this.value.length>=2)document.getElementById('f-d').focus();});
+document.getElementById('f-d').addEventListener('input',function(){if(this.value.length>=2)document.getElementById('f-y').focus();});
+document.getElementById('f-y').addEventListener('input',function(){if(this.value.length>4)this.value=this.value.slice(0,4);});
+document.addEventListener('keydown',e=>{if(e.key==='Enter')engage();});
+
+// ── Status ─────────────────────────────────────────────────────────────────
+function setStatus(cls,html){
+  const el=document.getElementById('status');
+  el.className='status'+(cls?' '+cls:'');
+  el.innerHTML=html;
+  document.getElementById('status-panel').style.display='flex';
+}
+
+// ── Engage ─────────────────────────────────────────────────────────────────
+async function engage(){
+  if(guardShowChange(()=>engage())) return;
+  const m=parseInt(document.getElementById('f-m').value)||0;
+  const d=parseInt(document.getElementById('f-d').value)||0;
+  const y=parseInt(document.getElementById('f-y').value)||0;
+  if(!m||!d||!y){setStatus('err','☠ INCOMPLETE DATE');return;}
+  if(m<1||m>12){setStatus('err','☠ INVALID MONTH · 1–12');return;}
+  if(d<1||d>31){setStatus('err','☠ INVALID DAY · 1–31');return;}
+  if(y<1983||y>2030){setStatus('err','☠ YEAR OUT OF RANGE · 1983–2030');return;}
+  const ms=String(m).padStart(2,'0'),ds=String(d).padStart(2,'0');
+  const dateStr=`${y}-${ms}-${ds}`;
+  const gen=++loadGen;
+  document.getElementById('ebtn').style.animation='eflash .4s ease';
+  setTimeout(()=>document.getElementById('ebtn').style.animation='',450);
+  document.getElementById('player-panel').classList.remove('visible');
+  setStatus('','<span class="loading">⟳</span> SCANNING FOR '+ms+'/'+ds+'/'+y+'...');
+  // Route through our own Cloudflare Worker proxy (CORS-safe)
+  // Worker: phish-proxy.YOUR-SUBDOMAIN.workers.dev
+  // UPDATE THIS URL after deploying the worker:
+  const PROXY = 'https://phish-proxy.sineveritas.workers.dev'; // v2 API, no key needed
+  try{
+    const proxyUrl=`${PROXY}/shows/${dateStr}`;
+    const ctrl=new AbortController();
+    const tid=setTimeout(()=>ctrl.abort(),15000);
+    const r=await fetch(proxyUrl,{signal:ctrl.signal});
+    clearTimeout(tid);
+    if(gen!==loadGen) return;
+    if(r.status===404){
+      setStatus('err',`☠ NO SHOW: ${ms}/${ds}/${y}<br><span style="font-size:9px">PHISH DID NOT PLAY THIS NIGHT</span>`);
+      return;
+    }
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const show=await r.json();
+    if(gen!==loadGen) return;
+    await loadPhishShow(show,m,d,y,gen);
+  }catch(e){
+    if(gen!==loadGen) return;
+    setStatus('err',`☠ COULD NOT LOAD SHOW · TRY AGAIN`);
+  }
+}
+
+// ── Load phish.in show ─────────────────────────────────────────────────────
+async function loadPhishShow(show,m,d,y,gen=loadGen){
+  try{
+    const ms=String(m).padStart(2,'0'),ds=String(d).padStart(2,'0');
+    // phish.in v2 API: show object returned directly, tracks are flat array
+    // track fields: title, mp3_url, duration (milliseconds), set_name, position
+    const showData=show.show||show.data||show;
+    const rawTracks=(showData.tracks||[]);
+    if(!rawTracks.length){setStatus('err','☠ NO AUDIO AVAILABLE');return;}
+
+    tracks=rawTracks
+      .sort((a,b)=>(a.set_name||'')<(b.set_name||'')?-1:(a.set_name||'')>(b.set_name||'')?1:(a.position||0)-(b.position||0))
+      .map(t=>({
+        name:t.title||'UNKNOWN',
+        url:t.mp3_url||t.mp3||t.audio_url||'',
+        duration:Math.floor((t.duration||0)/1000),
+        set_name:t.set_name||''
+      }))
+      .filter(t=>t.url);
+
+    if(!tracks.length){setStatus('err','☠ NO AUDIO AVAILABLE');return;}
+
+    const venue=showData.venue_name||showData.venue?.name||'';
+    const city=showData.venue?.location||showData.location||'';
+    const dateKey=`${y}-${ms}-${ds}`;
+
+    currentShow={date:dateKey,venue,city,type:'aud',identifier:`phish-${dateKey}`};
+    updateHeartBtn();
+
+    document.getElementById('show-date-big').textContent=`${MONTHS[m-1]} ${ds}, ${y}`;
+    document.getElementById('show-venue-big').textContent=`${venue}${city?' · '+city:''}`;
+    document.getElementById('show-meta').textContent=`${tracks.length} TRACKS · AUDIENCE RECORDING · PHISH.IN`;
+    document.getElementById('track-count').textContent=`${tracks.length} TRACKS`;
+    buildTracklist();
+    document.getElementById('player-panel').classList.add('visible');
+    document.getElementById('status-panel').style.display='none';
+    playTrack(0);
+  }catch(e){setStatus('err','☠ FAILED TO LOAD');}
+}
+
+// ── Build tracklist ────────────────────────────────────────────────────────
+function buildTracklist(){
+  document.getElementById('tracklist').innerHTML=tracks.map((t,i)=>`
+    <div class="track-item${i===currentTrack?' active':''}" id="trk-${i}" onclick="playTrack(${i})">
+      <div class="track-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="track-icon">${i===currentTrack?'▶':''}</div>
+      <div class="track-name">${escHtml(t.name)}</div>
+      <div class="track-dur">${formatTime(t.duration)}</div>
+      <button class="track-dl" title="Download" onclick="event.stopPropagation();dlTrack(${i},this)">DL</button>
+    </div>`).join('');
+}
+
+// ── fetchWithTimeout ───────────────────────────────────────────────────────
+async function fetchWithTimeout(url,ms=25000,opts={},extSignal=null){
+  const ctrl=new AbortController();
+  const tid=setTimeout(()=>ctrl.abort(),ms);
+  if(extSignal) extSignal.addEventListener('abort',()=>ctrl.abort(),{once:true});
+  try{
+    const r=await fetch(url,{...opts,signal:ctrl.signal});
+    if(!r.ok) throw new Error(r.status);
+    return r;
+  }finally{clearTimeout(tid);}
+}
+
+// ── DL Show (JSZip) ────────────────────────────────────────────────────────
+let dlShowActive=false,dlShowAbort=null,pendingNav=null;
+function showDlWarn(){document.getElementById('dl-warn').classList.add('visible');document.getElementById('dl-warn-backdrop').classList.add('visible');}
+function hideDlWarn(){document.getElementById('dl-warn').classList.remove('visible');document.getElementById('dl-warn-backdrop').classList.remove('visible');}
+function guardShowChange(cb){if(!dlShowActive)return false;pendingNav=cb;showDlWarn();return true;}
+function cancelDlShow(){
+  if(dlShowAbort)dlShowAbort.abort();dlShowActive=false;hideDlWarn();
+  const btn=document.getElementById('show-dl-btn');
+  const bar=document.getElementById('show-dl-progress');
+  const fill=document.getElementById('show-dl-fill');
+  if(btn){btn.textContent='⬇ DL SHOW';btn.classList.remove('loading');}
+  if(bar)bar.classList.remove('visible');if(fill)fill.style.width='0%';
+  if(pendingNav){const nav=pendingNav;pendingNav=null;nav();}
+}
+function keepDlShow(){pendingNav=null;hideDlWarn();}
+function loadJSZip(){
+  return window.JSZip?Promise.resolve():new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+    s.onload=res;s.onerror=rej;document.head.appendChild(s);
+  });
+}
+async function dlShow(btn){
+  if(dlShowActive||!tracks.length) return;
+  await loadJSZip();
+  dlShowAbort=new AbortController();dlShowActive=true;
+  const orig=btn.innerHTML;
+  const bar=document.getElementById('show-dl-progress');
+  const fill=document.getElementById('show-dl-fill');
+  btn.classList.add('loading');bar.classList.add('visible');fill.style.width='0%';
+  try{
+    const zip=new JSZip();
+    for(let i=0;i<tracks.length;i++){
+      if(dlShowAbort.signal.aborted) throw new DOMException('cancelled','AbortError');
+      btn.innerHTML=`${i+1} / ${tracks.length}<span class="dl-dot"></span>`;
+      const t=tracks[i];
+      const r=await fetchWithTimeout(t.url,45000,{cache:'no-store'},dlShowAbort.signal);
+      zip.file(`${String(i+1).padStart(2,'0')} ${(t.name||`track-${i+1}`).replace(/[^\w\s-]/g,'').trim()}.mp3`,await r.arrayBuffer());
+      fill.style.width=`${Math.round((i+1)/tracks.length*100)}%`;
+    }
+    btn.innerHTML=`SAVING...<span class="dl-dot"></span>`;
+    const blob=await zip.generateAsync({type:'blob',compression:'STORE'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=`Phish-${(currentShow?.date||'show').replace(/\//g,'-')}.zip`;
+    a.style.display='none';document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(a.href),15000);
+    btn.textContent='✓ DONE';
+    setTimeout(()=>{btn.innerHTML=orig;bar.classList.remove('visible');fill.style.width='0%';},3000);
+  }catch(e){
+    if(!dlShowAbort?.signal.aborted){btn.textContent='ERR';setTimeout(()=>{btn.innerHTML=orig;bar.classList.remove('visible');fill.style.width='0%';},2500);}
+  }finally{dlShowActive=false;dlShowAbort=null;btn.classList.remove('loading');}
+}
+async function dlTrack(i,btn){
+  const t={...tracks[i]};const orig=btn.textContent;
+  btn.classList.add('loading');btn.textContent='...';
+  try{
+    const r=await fetchWithTimeout(t.url,25000,{cache:'no-store'});
+    const blob=await r.blob();
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=(t.name||`track-${i+1}`).replace(/[^\w\s-]/g,'').trim()+'.mp3';
+    a.style.display='none';document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(a.href),15000);
+    btn.textContent='✓';setTimeout(()=>{btn.textContent=orig;},2000);
+  }catch(e){btn.textContent='ERR';setTimeout(()=>{btn.textContent=orig;},2000);}
+  finally{btn.classList.remove('loading');}
+}
+function updateActive(){
+  document.querySelectorAll('.track-item').forEach((el,i)=>{
+    el.classList.toggle('active',i===currentTrack);
+    el.querySelector('.track-icon').textContent=i===currentTrack?'▶':'';
+  });
+  const a=document.getElementById(`trk-${currentTrack}`);
+  if(a)a.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+
+// ── Playback ───────────────────────────────────────────────────────────────
+let playGen=0;
+function playTrack(i){
+  if(!tracks.length||i<0||i>=tracks.length) return;
+  const gen=++playGen;currentTrack=i;
+  audio.pause();audio.src='';audio.src=tracks[i].url;
+  const p=audio.play();
+  if(p) p.catch(e=>{if(gen!==playGen||e.name==='AbortError')return;});
+  document.getElementById('play-pause-btn').classList.remove('paused');
+  updateActive();
+}
+function togglePlay(){
+  if(!tracks.length) return;
+  if(audio.paused){audio.play().catch(()=>{});document.getElementById('play-pause-btn').classList.remove('paused');}
+  else{audio.pause();document.getElementById('play-pause-btn').classList.add('paused');}
+}
+function prevTrack(){audio.currentTime>3?audio.currentTime=0:playTrack(Math.max(0,currentTrack-1));}
+function nextTrack(){if(currentTrack<tracks.length-1)playTrack(currentTrack+1);}
+audio.addEventListener('ended',()=>{
+  if(currentTrack<tracks.length-1)playTrack(currentTrack+1);
+  else document.getElementById('play-pause-btn').classList.add('paused');
+});
+audio.addEventListener('error',()=>{
+  const gen=playGen;
+  if(tracks.length&&currentTrack<tracks.length-1){setTimeout(()=>{if(gen===playGen)playTrack(currentTrack+1);},800);}
+  else{document.getElementById('play-pause-btn').classList.add('paused');}
+});
+let seeking=false,rafPending=false;
+audio.addEventListener('timeupdate',()=>{
+  if(!audio.duration||seeking||rafPending) return;
+  rafPending=true;
+  requestAnimationFrame(()=>{
+    rafPending=false;if(!audio.duration||seeking)return;
+    const pct=(audio.currentTime/audio.duration*100)+'%';
+    document.getElementById('progress-fill').style.width=pct;
+    document.getElementById('progress-thumb').style.left=pct;
+    document.getElementById('time-display').textContent=`${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+  });
+});
+(function(){
+  const wrap=document.getElementById('progress-wrap');
+  function getPct(x){return Math.min(1,Math.max(0,(x-wrap.getBoundingClientRect().left)/wrap.offsetWidth));}
+  function updateVisual(pct){
+    const p=(pct*100)+'%';
+    document.getElementById('progress-fill').style.width=p;
+    document.getElementById('progress-thumb').style.left=p;
+    if(audio.duration)document.getElementById('time-display').textContent=`${formatTime(pct*audio.duration)} / ${formatTime(audio.duration)}`;
+  }
+  function commit(x){seeking=false;const pct=getPct(x);updateVisual(pct);if(audio.duration)audio.currentTime=pct*audio.duration;}
+  wrap.addEventListener('mousedown',e=>{seeking=true;updateVisual(getPct(e.clientX));e.preventDefault();});
+  window.addEventListener('mousemove',e=>{if(seeking)updateVisual(getPct(e.clientX));});
+  window.addEventListener('mouseup',e=>{if(seeking)commit(e.clientX);});
+  wrap.addEventListener('touchstart',e=>{seeking=true;updateVisual(getPct(e.touches[0].clientX));},{passive:true});
+  window.addEventListener('touchmove',e=>{if(seeking)updateVisual(getPct(e.touches[0].clientX));},{passive:true});
+  window.addEventListener('touchend',e=>{if(seeking)commit(e.changedTouches[0].clientX);});
+})();
+
+function formatTime(s){
+  if(!s)return '—';
+  if(typeof s==='string'&&s.includes(':')){
+    const p=s.split(':').map(Number);s=p.length===3?p[0]*3600+p[1]*60+p[2]:p[0]*60+p[1];
+  }
+  s=Math.floor(parseFloat(s));if(!s||isNaN(s))return '—';
+  return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+}
+
+// ── Random ─────────────────────────────────────────────────────────────────
+function randomShow(){
+  if(!ALL_SHOWS.length) return;
+  if(guardShowChange(()=>randomShow())) return;
+  dialShow(ALL_SHOWS[Math.floor(Math.random()*ALL_SHOWS.length)].date);
+}
+
+// ── Share ──────────────────────────────────────────────────────────────────
+function shareShow(){
+  const m=document.getElementById('f-m').value;
+  const d=document.getElementById('f-d').value;
+  const y=document.getElementById('f-y').value;
+  if(!m||!d||!y)return;
+  const ms=String(parseInt(m)).padStart(2,'0'),ds=String(parseInt(d)).padStart(2,'0');
+  const url=`${window.location.origin}${window.location.pathname}?date=${y}-${ms}-${ds}`;
+  navigator.clipboard.writeText(url).then(()=>{
+    const t=document.getElementById('share-toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);
+  }).catch(()=>{prompt('Copy this link:',url);});
+}
+
+// ── URL date param ─────────────────────────────────────────────────────────
+function checkUrlDate(){
+  const params=new URLSearchParams(window.location.search);
+  const date=params.get('date');if(!date)return false;
+  const parts=date.split('-');if(parts.length!==3)return false;
+  const[y,m,d]=parts.map(Number);if(!y||!m||!d)return false;
+  document.getElementById('f-m').value=m;
+  document.getElementById('f-d').value=d;
+  document.getElementById('f-y').value=y;
+  return true;
+}
+
+// ── Utilities ──────────────────────────────────────────────────────────────
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── Favorites ──────────────────────────────────────────────────────────────
+function getFaves(){try{return JSON.parse(localStorage.getItem('phishFaves')||'[]');}catch(e){return [];}}
+function saveFaves(arr){localStorage.setItem('phishFaves',JSON.stringify(arr));}
+function showFaveError(msg){const t=document.getElementById('fave-toast');t.textContent=msg;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),3000);}
+function toggleFave(){
+  if(!currentShow)return;
+  const faves=getFaves();const idx=faves.findIndex(f=>f.date===currentShow.date);
+  if(idx>=0){faves.splice(idx,1);}
+  else if(faves.length>=6){showFaveError('MAX 6 FAVES — REMOVE ONE FIRST');return;}
+  else{faves.push(currentShow);}
+  saveFaves(faves);updateHeartBtn();renderFaves();
+}
+function removeFave(date){saveFaves(getFaves().filter(f=>f.date!==date));updateHeartBtn();renderFaves();}
+function updateHeartBtn(){
+  const btn=document.getElementById('btn-fave');if(!btn||!currentShow)return;
+  const saved=getFaves().some(f=>f.date===currentShow.date);
+  btn.textContent=saved?'♥ SAVED':'♡ SAVE SHOW';btn.classList.toggle('saved',saved);
+}
+function renderFaves(){
+  const faves=getFaves();const section=document.getElementById('faves-section');
+  section.style.display='block';
+  if(!faves.length){document.getElementById('faves-grid').innerHTML='<div class="faves-empty">NO FAVE SHOWS ADDED YET</div>';return;}
+  document.getElementById('faves-grid').innerHTML=faves.map(f=>{
+    const[fy,fm,fd]=f.date.split('-').map(Number);
+    const label=`${MONTHS[fm-1]} ${String(fd).padStart(2,'0')} '${String(fy).slice(2)}`;
+    return `<div class="fave-card" onclick="dialShow('${f.date}')">
+      <button class="fave-remove" onclick="event.stopPropagation();removeFave('${f.date}')">×</button>
+      <div class="fave-date">${label}</div>
+      <div class="fave-venue">${escHtml(f.venue||'—')}</div>
+      <div class="fave-city">${escHtml(f.city||'')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Show navigation ────────────────────────────────────────────────────────
+function showNavIdx(){
+  if(!currentShow||!ALL_SHOWS.length)return -1;
+  let idx=ALL_SHOWS.findIndex(s=>s.date===currentShow.date);
+  if(idx===-1){idx=ALL_SHOWS.findIndex(s=>s.date>currentShow.date);if(idx===-1)idx=ALL_SHOWS.length;}
+  return idx;
+}
+function prevShow(){if(guardShowChange(()=>prevShow()))return;const idx=showNavIdx();if(idx>0)dialShow(ALL_SHOWS[idx-1].date);}
+function nextShow(){if(guardShowChange(()=>nextShow()))return;const idx=showNavIdx();if(idx!==-1&&idx<ALL_SHOWS.length-1)dialShow(ALL_SHOWS[idx+1].date);}
+
+// ── Dark Puddle mode ──────────────────────────────────────────────────────
+function toggleDarkPuddle(){
+  const on=document.documentElement.classList.toggle('darkpuddle');
+  localStorage.setItem('darkPuddle',on?'1':'');
+  document.getElementById('darkpuddle-btn').textContent=on?'FUEGO':'DARK PUDDLE';
+}
+if(localStorage.getItem('darkPuddle')){
+  document.documentElement.classList.add('darkpuddle');
+  document.getElementById('darkpuddle-btn').textContent='FUEGO';
+}
+
+renderFaves();
+init().then(()=>{if(checkUrlDate())engage();});
+</script>
+</body>
+</html>
