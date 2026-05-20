@@ -1,29 +1,38 @@
 name: Update Phish Show Database
 
 on:
+  # Run every Monday at 6am UTC — picks up weekend shows
   schedule:
-    - cron: '0 6 * * 1'   # Every Monday at 6am UTC
-  workflow_dispatch:        # Manual trigger from Actions tab
+    - cron: '0 6 * * 1'
+  # Also allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
 
 jobs:
-  update:
+  update-shows:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Generate shows.json
         run: python generate_phish.py
 
-      - name: Commit if changed
+      - name: Check for changes
+        id: check
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet shows.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add shows.json
-          git diff --staged --quiet || git commit -m "Update shows.json [automated]"
+          git commit -m "Auto-update shows.json [$(date '+%Y-%m-%d')]"
           git push
