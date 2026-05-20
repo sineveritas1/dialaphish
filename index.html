@@ -163,7 +163,7 @@
     @keyframes eflash{0%{opacity:1}25%{opacity:.2}50%{opacity:1}75%{opacity:.5}100%{opacity:1}}
     @keyframes trackslide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
     /* ── HEADER ── */
-    .header{text-align:center;margin-bottom:6px;display:flex;flex-direction:column;align-items:center;gap:3px;}
+    .header{text-align:center;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;gap:5px;}
 
     /* Phish logo */
     .phish-logo{
@@ -196,7 +196,7 @@
     /* ── DEST PANEL ── */
     .dest-panel{
       background:#F5F2EA;border:1.5px solid #DDD8C8;border-radius:12px;
-      padding:8px 10px 8px;margin-bottom:6px;
+      padding:12px 10px 10px;margin-bottom:8px;
       box-shadow:inset 0 1px 3px rgba(0,0,0,0.06);
     }
     .dest-row{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;}
@@ -219,23 +219,23 @@
     input.digit::-webkit-outer-spin-button,input.digit::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
     input.digit::placeholder{color:rgba(247,148,30,0.25);text-shadow:none;}
     .sep{color:rgba(247,148,30,0.4);font-family:'Syne',sans-serif;font-size:clamp(22px,7vw,36px);font-weight:700;line-height:1;padding-bottom:10px;flex-shrink:0;}
-    .dest-hint{text-align:center;margin-top:6px;font-size:11px;color:#333;letter-spacing:2px;}
+    .dest-hint{text-align:center;margin-top:10px;font-size:11px;color:#333;letter-spacing:2px;}
 
     /* ── BUTTONS ── */
-    .btns{display:flex;gap:10px;margin-bottom:6px;}
+    .btns{display:flex;gap:10px;margin-bottom:8px;}
     .btn-rnd{
       background:#F5F2EA;color:var(--blue);
       border:1.5px solid rgba(46,49,146,0.3);
       font-family:'JetBrains Mono',monospace;
       font-size:clamp(11px,3.5vw,13px);letter-spacing:1px;
-      padding:10px clamp(10px,3vw,16px);border-radius:8px;cursor:pointer;
+      padding:13px clamp(10px,3vw,16px);border-radius:8px;cursor:pointer;
       box-shadow:none;white-space:nowrap;transition:all .15s;
     }
     .btn-rnd:hover{background:#EAE6DA;box-shadow:0 2px 8px rgba(46,49,146,0.12);}
     .btn-engage{
       flex:1;background:linear-gradient(90deg, #2E3192, #22B14C, #FFF200, #F7941E, #ED1C24);color:#fff;
       font-family:'Syne',sans-serif;font-size:clamp(13px,4vw,15px);font-weight:700;
-      letter-spacing:clamp(1px,1vw,3px);padding:10px 10px;border:none;border-radius:8px;cursor:pointer;
+      letter-spacing:clamp(1px,1vw,3px);padding:13px 10px;border:none;border-radius:8px;cursor:pointer;
       box-shadow:0 0 20px rgba(168,85,247,0.6),0 0 40px rgba(168,85,247,0.3);
       text-shadow:none;transition:all .15s;
     }
@@ -244,8 +244,8 @@
 
     /* ── STATUS ── */
     .status-panel{
-      background:transparent;border:none;padding:3px 4px;min-height:26px;
-      display:flex;align-items:center;justify-content:center;margin-bottom:6px;
+      background:transparent;border:none;padding:6px 4px;min-height:36px;
+      display:flex;align-items:center;justify-content:center;margin-bottom:8px;
     }
     .status{font-size:13px;text-align:center;letter-spacing:1px;line-height:1.9;color:var(--blue) !important;text-shadow:none;}
     .status.err{color:var(--red) !important;text-shadow:none !important;}
@@ -256,7 +256,7 @@
     /* ── PLAYER PANEL ── */
     .player-panel{
       background:#FAFAF7;border:1.5px solid #DDD8C8;border-radius:12px;
-      padding:10px;margin-bottom:8px;display:none;
+      padding:14px;margin-bottom:12px;display:none;
       box-shadow:0 2px 12px rgba(0,0,0,0.06);
     }
     .player-panel.visible{display:block;}
@@ -313,10 +313,10 @@
       color:var(--orange) !important;text-shadow:none;letter-spacing:2px;
     }
     .show-venue-big{font-size:14px;color:var(--blue) !important;letter-spacing:1px;margin-bottom:2px;line-height:1.4;font-weight:700;}
-    .show-meta{font-size:11px;color:#333;letter-spacing:1px;margin-bottom:8px;}
+    .show-meta{font-size:11px;color:#333;letter-spacing:1px;margin-bottom:14px;}
 
     /* Transport */
-    .transport{display:flex;flex-direction:column;gap:7px;margin-bottom:8px;}
+    .transport{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
     .transport-controls{display:flex;align-items:center;justify-content:center;gap:8px;}
     .t-btn{
       background:#F0EDE4;border:1px solid #CCC8B8;border-radius:6px;
@@ -442,7 +442,7 @@
     .setup-box p{font-size:9px;color:#333;letter-spacing:1px;margin-top:8px;line-height:1.8;}
 
     /* ── SHARE ROW ── */
-    .share-row{display:flex;justify-content:space-between;margin-bottom:8px;}
+    .share-row{display:flex;justify-content:space-between;margin-bottom:14px;}
     .btn-share{
       background:#F5F2EA;border:1px solid rgba(34,177,76,0.4);color:var(--green);
       font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;
@@ -459,8 +459,8 @@
     .btn-fave.saved{background:var(--orange);border-color:var(--orange);color:#FFF;box-shadow:0 2px 8px rgba(247,148,30,0.3);}
 
     /* ── FAVES ── */
-    .faves-section{margin-bottom:4px;}
-    .faves-header{font-family:'Syne',sans-serif;font-size:12px;letter-spacing:3px;margin-bottom:5px;text-align:center;font-weight:700;color:#F7941E;}
+    .faves-section{margin-bottom:8px;}
+    .faves-header{font-family:'Syne',sans-serif;font-size:12px;letter-spacing:3px;margin-bottom:8px;text-align:center;font-weight:700;color:#F7941E;}
     .faves-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;overflow:hidden;}
     .fave-card{position:relative;background:#FFF;border:1px solid rgba(247,148,30,0.2);border-radius:6px;padding:8px 8px 6px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:3px;min-width:0;overflow:hidden;}
     .fave-card:hover{border-color:var(--orange);background:rgba(247,148,30,0.04);}
@@ -490,7 +490,7 @@
     .fave-toast.visible{opacity:1;}
 
     /* ── FOOTER ── */
-    .footer{text-align:center;margin-top:6px;font-size:clamp(11px,3vw,13px);letter-spacing:1px;line-height:1.9;color:#333;}
+    .footer{text-align:center;margin-top:10px;font-size:clamp(14px,4vw,17px);letter-spacing:1px;line-height:2.6;color:#333;}
 
     * {-webkit-tap-highlight-color:transparent;}
     input{color-scheme:light;}
@@ -637,8 +637,8 @@
   <!-- FOOTER -->
   <div class="footer">
     <a href="https://phish.in" style="color:#333;text-decoration:none;">☆ AUDIO FROM PHISH.IN ☆</a><br>
-    <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a><br>
-    <a href="https://neondeadhead.com" style="color:#22B14C;text-decoration:none;">NEONDEADHEAD.COM</a>
+    <a href="https://neondeadhead.com" style="color:#22B14C;text-decoration:none;">NEONDEADHEAD.COM</a><br>
+    <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a>
   </div>
 </div>
 
