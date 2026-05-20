@@ -617,7 +617,7 @@
   </div>
   <div class="archive-body" id="archive-body">
     <div class="year-tabs" id="year-tabs"></div>
-    <input class="show-search" id="show-search" placeholder="SEARCH VENUE, CITY, DATE, OR SONG..." oninput="filterShows()" />
+    <input class="show-search" id="show-search" placeholder="SEARCH VENUE, CITY, OR DATE..." oninput="filterShows()" />
     <div class="show-grid" id="show-grid"><div class="no-shows">⟳ LOADING...</div></div>
   </div>
 
@@ -636,8 +636,8 @@
 
   <!-- FOOTER -->
   <div class="footer">
-    <a href="https://phish.in" style="color:#333;text-decoration:none;">☆ AUDIO FROM PHISH.IN ☆</a><br>
-    <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a><br>
+    <a href="https://phish.in" style="color:#333;text-decoration:none;">☆ AUDIO FROM PHISH.IN ☆</a><br><br>
+    <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a><br><br>
     <a href="https://neondeadhead.com" style="color:#22B14C;text-decoration:none;">NEONDEADHEAD.COM</a>
   </div>
 </div>
@@ -699,73 +699,19 @@ function setYear(y){
 }
 
 // ── Filter + render ────────────────────────────────────────────────────────
-let songSearchTimer=null;
-
 function filterShows(){
   if(!ALL_SHOWS.length) return;
   const q=(document.getElementById('show-search').value||'').toLowerCase().trim();
   let list=ALL_SHOWS;
   if(activeYear!=='all') list=list.filter(s=>s.date.startsWith(activeYear));
-
   if(q){
-    const local=list.filter(s=>
+    renderShows(list.filter(s=>
       s.date.includes(q)||
       (s.venue||'').toLowerCase().includes(q)||
       (s.city||'').toLowerCase().includes(q)
-    );
-    if(local.length){
-      renderShows(local);
-    } else {
-      const grid=document.getElementById('show-grid');
-      grid.innerHTML='<div class="no-shows" style="color:var(--orange);grid-column:1/-1"><span style="display:inline-block;animation:spin .8s linear infinite">\u25ba</span> SEARCHING SONGS...</div>';
-      clearTimeout(songSearchTimer);
-      songSearchTimer=setTimeout(()=>songSearch(q),500);
-    }
+    ));
   } else {
     renderShows(list);
-  }
-}
-
-// ── Live song search via phish.in v2 /search ──────────────────────────────
-async function songSearch(term){
-  const grid=document.getElementById('show-grid');
-  try{
-    const url=`${PROXY}/search/${encodeURIComponent(term)}`;
-    const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
-    if(!r.ok) throw new Error(r.status);
-    const data=await r.json();
-    const tracks=(data.tracks||data.results||[]);
-    if(!tracks.length){
-      grid.innerHTML='<div class="no-shows">NO SONGS FOUND</div>';
-      return;
-    }
-    const seen=new Set();
-    const shows=tracks.filter(t=>{
-      const d=t.show_date||(t.show&&t.show.date)||'';
-      if(!d||seen.has(d)) return false;
-      seen.add(d); return true;
-    }).map(t=>({
-      date:  t.show_date||(t.show&&t.show.date)||'',
-      venue: t.venue_name||(t.show&&t.show.venue_name)||'',
-      city:  (t.venue&&t.venue.location)||(t.show&&t.show.venue&&t.show.venue.location)||'',
-      song:  t.title||term
-    })).filter(s=>s.date);
-    if(!shows.length){
-      grid.innerHTML='<div class="no-shows">NO SHOWS FOUND FOR THAT SONG</div>';
-      return;
-    }
-    grid.innerHTML=`<div style="font-size:11px;color:var(--orange);letter-spacing:2px;padding:6px 4px 8px;grid-column:1/-1;">\u266a ${shows.length} SHOWS WITH "${term.toUpperCase()}"</div>`+
-      shows.map(s=>{
-        const[y,m,d]=s.date.split('-').map(Number);
-        const label=`${MONTHS[m-1]} ${String(d).padStart(2,'0')} ${y}`;
-        return `<div class="show-item" onclick="dialShow('${s.date}')">
-          <div class="show-date">${label}</div>
-          <div class="show-venue">${escHtml(s.venue||'—')}</div>
-          <div class="show-city">${escHtml(s.city||'')}</div>
-        </div>`;
-      }).join('');
-  }catch(e){
-    grid.innerHTML='<div class="no-shows">SONG SEARCH UNAVAILABLE</div>';
   }
 }
 
