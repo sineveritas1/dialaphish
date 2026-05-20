@@ -53,8 +53,10 @@
     /* Yellow (#FFF200) is unreadable on white — text contexts use readable amber */
     :root { --yellow-text: #A07800; }
 
-    html,body{background:#F0EDE4;min-height:100%;font-family:'JetBrains Mono',monospace;}
-    body{display:flex;justify-content:center;padding:10px;background:#F0EDE4;}
+    html,body{min-height:100%;font-family:'JetBrains Mono',monospace;}
+    body{display:flex;justify-content:center;padding:10px;min-height:100vh;
+      background:linear-gradient(160deg,#d8daf2 0%,#ceeedd 22%,#f2eccc 48%,#f2e0c8 72%,#f2d0d0 100%);
+      background-attachment:fixed;}
 
     /* No background overlay */
 
@@ -85,7 +87,9 @@
     .darkpuddle-btn:hover{background:rgba(46,49,146,0.08);}
 
     /* ── DARK PUDDLE MODE ── */
-    html.darkpuddle,html.darkpuddle body{background:#0A0A0F;}
+    html.darkpuddle body{
+      background:linear-gradient(160deg,#06071a 0%,#04120a 22%,#100e02 48%,#100800 72%,#100202 100%);
+      background-attachment:fixed;}
     html.darkpuddle .machine{
       background:#111118;
       border-color:#2A2A3A;
