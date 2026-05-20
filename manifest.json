@@ -8,7 +8,7 @@
   "theme_color": "#2E3192",
   "icons": [
     {
-      "src": "/phish-logo.png",
+      "src": "https://res.cloudinary.com/dmbeoutyi/image/upload/v1779241581/phish-logo_al1k0a.png",
       "sizes": "any",
       "type": "image/png"
     }
