@@ -11,9 +11,12 @@ Audio via [phish.in](https://phish.in) — no API key required.
 ## How It Works
 
 - `index.html` — single-file app, no build step, no dependencies
-- `shows.json` — database of all shows (venue, city, date) for RANDOM + archive
-- `generate_phish.py` — Python script that builds shows.json from phish.in API
-- `.github/workflows/update-shows.yml` — auto-runs every Monday to catch new tour dates
+- `shows.json` — every show phish.in has audio for (venue, city, id) — RANDOM, archive, ← / →
+- `generate_phish.py` — rebuilds shows.json from the phish.in API (~22 requests, <1 min)
+- `setlists.json` + `build_setlists.py` — per-show setlists for the static pages (incremental)
+- `build_pages.py` — **generates** `show/`, `year/`, `pages.css`, `sitemap.xml` (crawlable pages; don't hand-edit)
+- `_headers`, `_redirects`, `404.html`, `robots.txt`, `llms.txt`, `opensearch.xml` — Cloudflare Pages / SEO bits
+- `.github/workflows/update-shows.yml` — runs every Monday: new shows → setlists → pages → commit
 
 ENGAGE always hits phish.in live — no shows.json needed for playback.  
 RANDOM and the archive browser require shows.json.
@@ -25,10 +28,11 @@ RANDOM and the archive browser require shows.json.
 ### 1. Build shows.json
 
 ```bash
-python generate_phish.py
+python3 generate_phish.py --dry-run   # show what would change
+python3 generate_phish.py             # write shows.json (replaces it; refuses a >5% drop without --force)
+python3 build_setlists.py             # fetch setlists for any new dates
+python3 build_pages.py                # regenerate show/year pages + sitemap, then commit
 ```
-
-Takes ~2–3 minutes to pull all years. Outputs `shows.json`.
 
 ### 2. Deploy to Cloudflare Pages
 
@@ -40,7 +44,9 @@ Takes ~2–3 minutes to pull all years. Outputs `shows.json`.
 
 ### 3. Auto-updates (GitHub Actions)
 
-The included workflow runs every Monday and auto-commits an updated `shows.json` if new shows were added. Cloudflare Pages auto-deploys on push.
+The included workflow runs every Monday and auto-commits updated `shows.json`, setlists and pages when new shows land. Cloudflare Pages auto-deploys on push. It needs `permissions: contents: write` (already set) — without it every run fails at `git push`.
+
+GitHub switches scheduled workflows **off** after 60 days without repo activity. If shows stop updating, check **Actions → Update Phish Show Database** for a "disabled" banner and re-enable it.
 
 To trigger manually: **Actions → Update Phish Show Database → Run workflow**
 
