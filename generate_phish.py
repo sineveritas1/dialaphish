@@ -1,127 +1,114 @@
 #!/usr/bin/env python3
 """
-generate_phish.py — Build shows.json for Dial-A-Phish
-Uses phish.in v2 API (no key required).
+generate_phish.py — build shows.json for DIAL·A·PHISH from the phish.in v2 API.
 
-Usage:  python generate_phish.py
-Output: shows.json
+    { "YYYY-MM-DD": { "venue": ..., "city": ..., "id": <phish.in show id> } }
+
+One entry per show phish.in has audio for. It pages through /shows once
+(~22 requests of 100), so a full rebuild takes well under a minute.
+
+The result REPLACES shows.json — a show phish.in removes (or whose audio goes
+missing) drops out too. If any page fails, nothing is written and the script
+exits non-zero, so a flaky run can never truncate the index; it also refuses to
+write if the count falls by more than 5%.
+
+Usage:
+    python3 generate_phish.py            # write shows.json
+    python3 generate_phish.py --dry-run  # report what would change
+    python3 generate_phish.py --force    # write even if the count drops >5%
 """
-
-import json, time, sys
-from datetime import datetime
+import json, sys, time
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
 
 BASE  = "https://phish.in/api/v2"
 OUT   = "shows.json"
-UA    = "dial-a-phish/1.0"
+UA    = "dial-a-phish/1.1 (+https://dialaphish.com)"
 DELAY = 0.5
-START_YEAR = 1983
-END_YEAR   = datetime.now().year  # automatically includes 2026, 2027, etc.
+PER   = 100
 
-def fetch(url, retries=3):
+def fetch(url, retries=4):
     req = Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
     for attempt in range(retries):
         try:
-            with urlopen(req, timeout=20) as r:
+            with urlopen(req, timeout=30) as r:
                 return json.loads(r.read().decode("utf-8"))
         except HTTPError as e:
-            if e.code == 429:
-                wait = 15 * (attempt + 1)
-                print(f" [rate limit, waiting {wait}s]", flush=True)
-                time.sleep(wait)
-            elif e.code == 404:
+            if e.code == 404:
                 return None
-            else:
-                print(f" [HTTP {e.code}]", end="", flush=True)
-                if attempt == retries - 1:
-                    return None
-                time.sleep(3)
-        except URLError as e:
-            print(f" [network error]", end="", flush=True)
-            if attempt == retries - 1:
-                return None
-            time.sleep(3)
-    return None
+            wait = 15 * (attempt + 1) if e.code in (429, 503) else 3 * (attempt + 1)
+            print(f" [HTTP {e.code}, retry in {wait}s]", flush=True)
+        except (URLError, TimeoutError, ValueError) as e:
+            wait = 3 * (attempt + 1)
+            print(f" [{type(e).__name__}, retry in {wait}s]", flush=True)
+        time.sleep(wait)
+    raise RuntimeError(f"giving up on {url}")
 
-def get_shows_for_year(year):
-    shows = []
-    page = 1
-    while True:
-        url = f"{BASE}/shows?per_page=100&page={page}&year={year}"
-        data = fetch(url)
-        if not data:
-            break
-        if isinstance(data, list):
-            chunk, total_pages = data, 1
-        elif isinstance(data, dict):
-            chunk = data.get("shows") or data.get("data") or []
-            total_pages = data.get("total_pages") or data.get("pages") or 1
-        else:
-            break
-        shows.extend(chunk)
-        if page >= total_pages or not chunk:
-            break
+def has_audio(s):
+    st = s.get("audio_status")
+    if st is not None:
+        return st in ("complete", "partial")
+    return bool(s.get("tracks_count") or s.get("duration"))
+
+def all_shows():
+    out, page, total = [], 1, 1
+    while page <= total:
+        d = fetch(f"{BASE}/shows?per_page={PER}&page={page}&sort=date:asc")
+        if not isinstance(d, dict):
+            raise RuntimeError(f"unexpected response on page {page}")
+        out.extend(d.get("shows") or [])
+        total = d.get("total_pages") or 1
+        print(f"  page {page}/{total}", flush=True)
         page += 1
         time.sleep(DELAY)
-    return shows
+    return out
 
 def main():
-    print("=" * 60)
-    print("DIAL-A-PHISH — show database generator (v2 API)")
-    print(f"Years: {START_YEAR}–{END_YEAR}")
-    print("=" * 60)
+    dry = "--dry-run" in sys.argv
     t0 = time.time()
-
     try:
         existing = json.load(open(OUT, encoding="utf-8"))
-        print(f"\nExisting: {len(existing)} shows")
-    except:
+    except (OSError, ValueError):
         existing = {}
-        print("\nBuilding from scratch...")
+    print(f"Existing: {len(existing)} shows")
 
-    shows_dict = {}
-    total = 0
-
-    for year in range(START_YEAR, END_YEAR + 1):
-        print(f"\n{year}:", end=" ", flush=True)
-        year_shows = get_shows_for_year(year)
-
-        if not year_shows:
-            print("no shows")
+    shows, skipped = {}, 0
+    for s in all_shows():
+        date = (s.get("date") or "")[:10]
+        if len(date) != 10:
             continue
+        if not has_audio(s):
+            skipped += 1
+            continue
+        v = s.get("venue") if isinstance(s.get("venue"), dict) else {}
+        shows[date] = {"venue": s.get("venue_name") or v.get("name", ""),
+                       "city": v.get("location", "") or s.get("location", ""),
+                       "id": s.get("id", "")}
+    shows = dict(sorted(shows.items()))
 
-        count = 0
-        skipped = 0
-        for s in year_shows:
-            date = (s.get("date") or s.get("show_date", ""))[:10]
-            if not date or len(date) < 10:
-                continue
-            # Skip shows with no audio tracks
-            if not s.get("tracks_count") and not s.get("duration"):
-                skipped += 1
-                continue
-            v = s.get("venue") or {}
-            venue = s.get("venue_name") or (v.get("name", "") if isinstance(v, dict) else "") or ""
-            city  = (v.get("location", "") if isinstance(v, dict) else "") or s.get("location", "")
-            shows_dict[date] = {"venue": venue, "city": city, "id": s.get("id", "")}
-            count += 1
+    added = sorted(set(shows) - set(existing))
+    removed = sorted(set(existing) - set(shows))
+    changed = sorted(k for k in set(shows) & set(existing) if shows[k] != existing[k])
+    print(f"\nphish.in: {len(shows)} shows with audio ({skipped} without audio skipped)")
+    print(f"added {len(added)}, removed {len(removed)}, changed {len(changed)}")
+    for label, keys in (("+", added), ("-", removed), ("~", changed)):
+        for k in keys[:40]:
+            print(f"  {label} {k}  {(shows.get(k) or existing.get(k))['venue']}")
 
-        print(f"{count} shows{f' ({skipped} skipped, no audio)' if skipped else ''}", flush=True)
-        total += count
-
-    merged = dict(sorted({**existing, **shows_dict}.items()))
-    json.dump(merged, open(OUT, "w", encoding="utf-8"), separators=(",", ":"))
-
-    print(f"\n{'='*60}")
-    print(f"Done! {len(merged)} shows → {OUT}  ({time.time()-t0:.0f}s)")
-    print(f"{'='*60}")
+    if existing and "--force" not in sys.argv and len(shows) < len(existing) * 0.95:
+        print(f"\nREFUSING: count fell from {len(existing)} to {len(shows)} — looks like a bad scrape (--force to override).")
+        sys.exit(1)
+    if dry:
+        print("\n(dry run — nothing written)")
+        return
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(shows, f, separators=(",", ":"), ensure_ascii=False)
+    print(f"\nWrote {len(shows)} shows → {OUT} ({time.time()-t0:.0f}s)")
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nCancelled")
         sys.exit(1)
     except Exception as e:
         print(f"\nFATAL: {e}")

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Dial-A-Phish</ShortName>
+  <Description>Stream any Phish show — enter a date to dial in</Description>
+  <Tags>Phish live music streaming</Tags>
+  <Image width="512" height="512" type="image/png">https://res.cloudinary.com/dmbeoutyi/image/upload/w_512,h_512,c_pad,b_white/v1779241581/phish-logo_al1k0a.png</Image>
+  <Url type="text/html" template="https://dialaphish.com/?date={searchTerms}"/>
+  <InputEncoding>UTF-8</InputEncoding>
+</OpenSearchDescription>

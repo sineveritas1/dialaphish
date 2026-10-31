@@ -5,7 +5,7 @@
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dmbeoutyi/image/upload/v1779241581/phish-logo_al1k0a.png" />
   <link rel="shortcut icon" href="https://res.cloudinary.com/dmbeoutyi/image/upload/v1779241581/phish-logo_al1k0a.png" />
   <link rel="apple-touch-icon" href="https://res.cloudinary.com/dmbeoutyi/image/upload/v1779241581/phish-logo_al1k0a.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DIAL·A·PHISH — Stream Any Phish Show Free</title>
   <meta name="description" content="Stream any Phish show from 1983–present. Enter a date and instantly dial in audience recordings from phish.in. Free. No account needed." />
   <link rel="canonical" href="https://dialaphish.com/" />
@@ -14,11 +14,13 @@
   <meta property="og:url" content="https://dialaphish.com/" />
   <meta property="og:title" content="DIAL·A·PHISH — Stream Any Phish Show Free" />
   <meta property="og:description" content="Enter a date. Stream the show. Every Phish recording from phish.in, free. 1983–present." />
+  <meta property="og:image" content="https://res.cloudinary.com/dmbeoutyi/image/upload/v1779241581/phish-logo_al1k0a.png" />
   <meta property="og:site_name" content="DIAL·A·PHISH" />
   <!-- Twitter/X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="DIAL·A·PHISH — Stream Any Phish Show Free" />
   <meta name="twitter:description" content="Enter a date. Stream the show. Every Phish recording from phish.in, free." />
+  <meta name="twitter:image" content="https://res.cloudinary.com/dmbeoutyi/image/upload/v1779241581/phish-logo_al1k0a.png" />
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#2E3192" />
@@ -30,6 +32,12 @@
   <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"DIAL·A·PHISH","url":"https://dialaphish.com/","description":"Stream any Phish show from 1983–present. Audience recordings from phish.in, free.","applicationCategory":"MusicApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"NeonDeadhead","url":"https://neondeadhead.com"}}
   </script>
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"MusicGroup","name":"Phish","sameAs":["https://phish.in","https://en.wikipedia.org/wiki/Phish"]}
+  </script>
+  <link rel="search" type="application/opensearchdescription+xml" title="DIAL·A·PHISH" href="/opensearch.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -433,6 +441,16 @@
     .setup-box code{display:block;background:#EEE;border:1px solid #CCC;border-radius:4px;padding:7px 10px;margin:5px 0;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue);text-align:left;}
     .setup-box p{font-size:9px;color:#333;letter-spacing:1px;margin-top:8px;line-height:1.8;}
 
+    /* Plain-HTML intro + links at the top of the archive (read by search engines) */
+    .arch-about{font-size:11px;line-height:1.6;color:#444;margin-bottom:8px;letter-spacing:.5px;}
+    .legends{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:10px;}
+    .legends-h{font-size:10px;letter-spacing:2px;color:var(--orange);font-weight:700;margin-right:2px;}
+    .legends a{font-size:10px;letter-spacing:1px;color:var(--blue);text-decoration:none;background:#FFF;border:1px solid #DDD8C8;border-radius:4px;padding:4px 7px;}
+    .legends a:hover{border-color:var(--orange);color:var(--orange);}
+    html.darkpuddle .arch-about{color:#888;}
+    html.darkpuddle .legends a{background:#080810;border-color:#2A2A3A;color:#AAA;}
+    html.darkpuddle .legends a:hover{border-color:var(--orange);color:var(--orange);}
+
     /* ── SHARE ROW ── */
     .share-row{display:flex;justify-content:space-between;margin-bottom:14px;}
     .btn-share{
@@ -483,13 +501,15 @@
 
     /* ── FOOTER ── */
     .footer{text-align:center;margin-top:6px;font-size:clamp(14px,4vw,17px);letter-spacing:1px;line-height:1.4;color:#333;}
+    .disclaimer{font-size:9px;color:#666;letter-spacing:.5px;margin-top:8px;}
+    html.darkpuddle .disclaimer{color:#555;}
 
     * {-webkit-tap-highlight-color:transparent;}
     input{color-scheme:light;}
   </style>
 </head>
 <body>
-<div class="machine">
+<main class="machine">
 
   <!-- Corner buttons -->
   <div class="corner-btns">
@@ -499,7 +519,7 @@
   <!-- HEADER -->
   <div class="header">
     <img class="phish-logo" src="https://res.cloudinary.com/dmbeoutyi/image/upload/v1779241581/phish-logo_al1k0a.png" alt="Phish" />
-    <div class="title">DIAL·A·PHISH</div>
+    <h1 class="title">DIAL·A·PHISH</h1>
     <div class="subtitle">LIVE PHISH ARCHIVE · 1983–PRESENT</div>
   </div>
 
@@ -605,6 +625,10 @@
     </div>
   </div>
   <div class="archive-body" id="archive-body">
+    <!-- Plain HTML on purpose: search engines read it even while the panel is
+         collapsed, and the links lead them into the static /show pages. -->
+    <p class="arch-about">Free Phish time machine: stream any show from 1983 to last night, straight from phish.in.</p>
+    <nav class="legends"><span class="legends-h">LEGENDARY NIGHTS</span> <a href="/show/1993-05-08" onclick="dialShow('1993-05-08');return false">UNH 5/8/93</a> <a href="/show/1994-06-22" onclick="dialShow('1994-06-22');return false">Columbus 6/22/94</a> <a href="/show/1994-10-31" onclick="dialShow('1994-10-31');return false">Glens Falls 10/31/94</a> <a href="/show/1995-12-31" onclick="dialShow('1995-12-31');return false">MSG 12/31/95</a> <a href="/show/1997-08-17" onclick="dialShow('1997-08-17');return false">The Great Went 8/17/97</a> <a href="/show/1997-11-17" onclick="dialShow('1997-11-17');return false">Denver 11/17/97</a> <a href="/show/1998-11-02" onclick="dialShow('1998-11-02');return false">West Valley 11/2/98</a> <a href="/show/1999-12-31" onclick="dialShow('1999-12-31');return false">Big Cypress 12/31/99</a> <a href="/show/2009-11-01" onclick="dialShow('2009-11-01');return false">Festival 8 11/1/09</a> <a href="/show/2017-08-06" onclick="dialShow('2017-08-06');return false">Baker’s Dozen 8/6/17</a></nav>
     <div class="year-tabs" id="year-tabs"></div>
     <input class="show-search" id="show-search" placeholder="SEARCH VENUE, CITY, OR DATE..." oninput="filterShows()" />
     <div class="show-grid" id="show-grid"><div class="no-shows">⟳ LOADING...</div></div>
@@ -627,8 +651,9 @@
   <div class="footer">
     <a href="https://phish.in" style="color:#333;text-decoration:none;">☆ AUDIO FROM PHISH.IN ☆</a><br><br>
     <a href="https://dialadead.com" style="color:#F7941E;text-decoration:none;">ALSO: DIAL·A·DEAD</a>
+    <div class="disclaimer">Fan-made site</div>
   </div>
-</div>
+</main>
 
 <script>
 const MONTHS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
@@ -719,6 +744,7 @@ function renderShows(list){
 let dialTimer=null;
 function dialShow(dateStr){
   if(guardShowChange(()=>dialShow(dateStr))) return;
+  clearTimeout(nearestTimer);
   const[y,m,d]=dateStr.split('-').map(Number);
   document.getElementById('f-m').value=m;
   document.getElementById('f-d').value=d;
@@ -745,15 +771,42 @@ function setStatus(cls,html){
 }
 
 // ── Engage ─────────────────────────────────────────────────────────────────
+// Show JSON goes through our Cloudflare Worker (phish-proxy). If the worker
+// itself is down or slow, fall back to phish.in directly (it sends CORS
+// headers), so one hop failing doesn't take the whole site down with it.
+const PROXY='https://phish-proxy.sineveritas.workers.dev'; // v2 API, no key needed
+const LAST_YEAR=new Date().getFullYear()+1;
+async function fetchShowJson(dateStr){
+  const urls=[`${PROXY}/shows/${dateStr}`,`https://phish.in/api/v2/shows/${dateStr}`];
+  let last;
+  for(const u of urls){
+    try{
+      const ctrl=new AbortController(),tid=setTimeout(()=>ctrl.abort(),12000);
+      const r=await fetch(u,{signal:ctrl.signal}).finally(()=>clearTimeout(tid));
+      if(r.status===404) return null;            // phish.in has no such show
+      if(!r.ok){last=new Error(`HTTP ${r.status}`);last.status=r.status;continue;}
+      return await r.json();
+    }catch(e){last=e;}
+  }
+  throw last||new Error('unreachable');
+}
 async function engage(){
   if(guardShowChange(()=>engage())) return;
+  clearTimeout(nearestTimer);   // a pending "jump to nearest" is superseded
   const m=parseInt(document.getElementById('f-m').value)||0;
   const d=parseInt(document.getElementById('f-d').value)||0;
   const y=parseInt(document.getElementById('f-y').value)||0;
   if(!m||!d||!y){setStatus('err','☠ INCOMPLETE DATE');return;}
   if(m<1||m>12){setStatus('err','☠ INVALID MONTH · 1–12');return;}
   if(d<1||d>31){setStatus('err','☠ INVALID DAY · 1–31');return;}
-  if(y<1983||y>2030){setStatus('err','☠ YEAR OUT OF RANGE · 1983–2030');return;}
+  if(y<1983||y>LAST_YEAR){setStatus('err',`☠ YEAR OUT OF RANGE · 1983–${LAST_YEAR}`);return;}
+  // Reject dates that never existed (Feb 30, Apr 31) — they'd otherwise read
+  // as "no show that night".
+  const probe=new Date(y,m-1,d);
+  if(probe.getMonth()!==m-1||probe.getDate()!==d){
+    setStatus('err',`☠ THAT DATE DOESN'T EXIST<br><span style="font-size:9px">${MONTHS[m-1]} HAS NO DAY ${d}</span>`);
+    return;
+  }
   const ms=String(m).padStart(2,'0'),ds=String(d).padStart(2,'0');
   const dateStr=`${y}-${ms}-${ds}`;
   const gen=++loadGen;
@@ -761,43 +814,58 @@ async function engage(){
   setTimeout(()=>document.getElementById('ebtn').style.animation='',450);
   document.getElementById('player-panel').classList.remove('visible');
   setStatus('','<span class="loading">⟳</span> SCANNING FOR '+ms+'/'+ds+'/'+y+'...');
-  // Route through our own Cloudflare Worker proxy (CORS-safe)
-  // Worker: phish-proxy.YOUR-SUBDOMAIN.workers.dev
-  // UPDATE THIS URL after deploying the worker:
-  const PROXY = 'https://phish-proxy.sineveritas.workers.dev'; // v2 API, no key needed
   try{
-    const proxyUrl=`${PROXY}/shows/${dateStr}`;
-    const ctrl=new AbortController();
-    const tid=setTimeout(()=>ctrl.abort(),15000);
-    const r=await fetch(proxyUrl,{signal:ctrl.signal});
-    clearTimeout(tid);
+    const show=await fetchShowJson(dateStr);
     if(gen!==loadGen) return;
-    if(r.status===404){
-      setStatus('err',`☠ NO SHOW: ${ms}/${ds}/${y}<br><span style="font-size:9px">PHISH DID NOT PLAY THIS NIGHT</span>`);
-      return;
-    }
-    if(!r.ok) throw new Error(`HTTP ${r.status}`);
-    const show=await r.json();
-    if(gen!==loadGen) return;
+    if(!show){noShowHere(dateStr,m,d,y);return;}
     await loadPhishShow(show,m,d,y,gen);
   }catch(e){
     if(gen!==loadGen) return;
-    setStatus('err',`☠ COULD NOT LOAD SHOW · TRY AGAIN`);
+    setStatus('err',`☠ CAN'T REACH PHISH.IN<br><span style="font-size:9px">PHISH.IN MAY BE DOWN, OR YOUR CONNECTION DROPPED — TRY AGAIN</span>`);
   }
+}
+
+// ── No show on that date ───────────────────────────────────────────────────
+// Phish didn't play every night, so a miss is normal. Say so, then carry the
+// listener to the closest night with audio so the dial never dead-ends.
+let nearestTimer=null;
+function nearestShowDate(key){
+  if(!ALL_SHOWS.length) return null;
+  let best=null,bestGap=Infinity;
+  const t=Date.parse(key+'T00:00:00Z');
+  for(const s of ALL_SHOWS){
+    const gap=Math.abs(Date.parse(s.date+'T00:00:00Z')-t);
+    if(gap<bestGap){bestGap=gap;best=s;}
+  }
+  return best;
+}
+function noShowHere(key,m,d,y,why){
+  const ms=String(m).padStart(2,'0'),ds=String(d).padStart(2,'0');
+  const head=`☠ NO SHOW: ${ms}/${ds}/${y}<br><span style="font-size:9px">${why||'PHISH DID NOT PLAY THIS NIGHT'}</span>`;
+  const near=nearestShowDate(key);
+  if(!near||near.date===key){setStatus('err',head);return;}
+  const[ny,nm,nd]=near.date.split('-').map(Number);
+  const where=[near.venue,near.city].filter(Boolean).join(' · ');
+  setStatus('err',head
+    +`<br><span style="font-size:10px;color:var(--green)">⟳ JUMPING TO NEAREST · ${MONTHS[nm-1]} ${String(nd).padStart(2,'0')} ${ny}</span>`
+    +(where?`<br><span style="font-size:9px">${escHtml(where)}</span>`:''));
+  clearTimeout(nearestTimer);
+  nearestTimer=setTimeout(()=>dialShow(near.date),2200);
 }
 
 // ── Load phish.in show ─────────────────────────────────────────────────────
 async function loadPhishShow(show,m,d,y,gen=loadGen){
   try{
     const ms=String(m).padStart(2,'0'),ds=String(d).padStart(2,'0');
-    // phish.in v2 API: show object returned directly, tracks are flat array
-    // track fields: title, mp3_url, duration (milliseconds), set_name, position
+    const dateKey=`${y}-${ms}-${ds}`;
+    // phish.in v2: show object returned directly, tracks are a flat array.
+    // track fields: title, mp3_url, duration (ms), set_name, position.
     const showData=show.show||show.data||show;
-    const rawTracks=(showData.tracks||[]);
-    if(!rawTracks.length){setStatus('err','☠ NO AUDIO AVAILABLE');return;}
-
-    tracks=rawTracks
-      .sort((a,b)=>(a.set_name||'')<(b.set_name||'')?-1:(a.set_name||'')>(b.set_name||'')?1:(a.position||0)-(b.position||0))
+    // Play order is `position`, which runs across the whole show. Sorting by
+    // set_name put "Encore" ahead of "Set 1" (alphabetical) — every show
+    // opened with its encore.
+    tracks=(showData.tracks||[])
+      .slice().sort((a,b)=>(a.position||0)-(b.position||0))
       .map(t=>({
         name:t.title||'UNKNOWN',
         url:t.mp3_url||t.mp3||t.audio_url||'',
@@ -805,13 +873,10 @@ async function loadPhishShow(show,m,d,y,gen=loadGen){
         set_name:t.set_name||''
       }))
       .filter(t=>t.url);
-
-    if(!tracks.length){setStatus('err','☠ NO AUDIO AVAILABLE');return;}
+    if(!tracks.length){noShowHere(dateKey,m,d,y,'NO AUDIO FOR THIS NIGHT ON PHISH.IN');return;}
 
     const venue=showData.venue_name||showData.venue?.name||'';
     const city=showData.venue?.location||showData.location||'';
-    const dateKey=`${y}-${ms}-${ds}`;
-
     currentShow={date:dateKey,venue,city,type:'aud',identifier:`phish-${dateKey}`};
     updateHeartBtn();
 
@@ -819,10 +884,14 @@ async function loadPhishShow(show,m,d,y,gen=loadGen){
     document.getElementById('show-venue-big').textContent=`${venue}${city?' · '+city:''}`;
     document.getElementById('show-meta').textContent=`${tracks.length} TRACKS · AUDIENCE RECORDING · PHISH.IN`;
     document.getElementById('track-count').textContent=`${tracks.length} TRACKS`;
+    let start=0;
+    if(pendingTrack!=null){start=Math.min(pendingTrack-1,tracks.length-1);pendingTrack=null;}
+    currentTrack=start;
     buildTracklist();
     document.getElementById('player-panel').classList.add('visible');
     document.getElementById('status-panel').style.display='none';
-    playTrack(0);
+    setShowSeo(currentShow,m,d,y,tracks.length);
+    playTrack(start);
   }catch(e){setStatus('err','☠ FAILED TO LOAD');}
 }
 
@@ -923,48 +992,243 @@ function updateActive(){
     el.classList.toggle('active',i===currentTrack);
     el.querySelector('.track-icon').textContent=i===currentTrack?'▶':'';
   });
-  const a=document.getElementById(`trk-${currentTrack}`);
-  if(a)a.scrollIntoView({block:'nearest',behavior:'smooth'});
+  scrollActiveIntoView();
 }
+// Only move the viewport while the page is actually on screen. Tapping next/prev
+// in the phone's notification shade fires this via the Media Session handlers; a
+// page-initiated scroll while hidden makes Android surface the browser and snap
+// the shade shut, which reads as "it bounced me out of the panel". Deferred to
+// the next visibility change instead, so the list is still in sync on return.
+let pendingScroll=false;
+function scrollActiveIntoView(smooth){
+  if(document.visibilityState!=='visible'){pendingScroll=true;return;}
+  const a=document.getElementById(`trk-${currentTrack}`);
+  const list=document.getElementById('tracklist');
+  if(!a||!list) return;
+  // Scroll the tracklist itself rather than calling scrollIntoView, which walks
+  // up and can move the document scroll position too. Keeping it inside the
+  // container means playback never moves the page under the user.
+  // Measure with rects, NOT offsetTop: .tracklist isn't positioned, so offsetTop
+  // is relative to .player-panel and would include the whole date/venue/transport
+  // block above the list — which overshoots the playing track by ~300px.
+  const ar=a.getBoundingClientRect(),lr=list.getBoundingClientRect();
+  const top=list.scrollTop+(ar.top-lr.top)-list.clientHeight/2+ar.height/2;
+  const max=list.scrollHeight-list.clientHeight;
+  list.scrollTo({top:Math.max(0,Math.min(top,max)),behavior:smooth===false?'auto':'smooth'});
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'&&pendingScroll){
+    pendingScroll=false;
+    scrollActiveIntoView(false);
+  }
+});
 
-// ── Playback ───────────────────────────────────────────────────────────────
-let playGen=0;
-function playTrack(i){
-  if(!tracks.length||i<0||i>=tracks.length) return;
-  const gen=++playGen;currentTrack=i;
-  audio.pause();audio.src='';audio.src=tracks[i].url;
-  const p=audio.play();
-  if(p) p.catch(e=>{if(gen!==playGen||e.name==='AbortError')return;});
+// ── Media Session (lockscreen / notification controls + background playback) ───
+// This is what keeps audio alive when the screen is off / app is backgrounded,
+// and what shows the CURRENT TRACK TITLE in the notification instead of the app name.
+const MS_ARTWORK='https://res.cloudinary.com/dmbeoutyi/image/upload/w_512,h_512,c_pad,b_white/v1779241581/phish-logo_al1k0a.png';
+let mediaSessionReady=false;
+function setupMediaSession(){
+  if(mediaSessionReady||!('mediaSession' in navigator)) return;
+  mediaSessionReady=true;
+  const ms=navigator.mediaSession;
+  const set=(a,fn)=>{try{ms.setActionHandler(a,fn);}catch(e){}};
+  set('play',()=>{audio.play().catch(()=>{});});
+  set('pause',()=>{audio.pause();});
+  set('previoustrack',()=>prevTrack());
+  set('nexttrack',()=>nextTrack());
+  // No seekbackward/seekforward on purpose: when they're registered, iOS swaps
+  // the lock screen's previous/next track buttons for ±10s skip buttons.
+  set('seekto',d=>{if(!d)return;if(d.fastSeek&&'fastSeek'in audio){audio.fastSeek(d.seekTime);}else{audio.currentTime=d.seekTime;}updatePositionState();});
+  set('stop',()=>{audio.pause();});
+}
+function updateMediaSession(){
+  if(!('mediaSession' in navigator)) return;
+  setupMediaSession();
+  const t=tracks[currentTrack];
+  if(!t) return;
+  let album='Phish';
+  if(currentShow&&currentShow.date){
+    const[cy,cm,cd]=currentShow.date.split('-').map(Number);
+    album=`${MONTHS[cm-1]} ${cd}, ${cy}`+(currentShow.venue?` · ${currentShow.venue}`:'');
+  }
+  try{
+    navigator.mediaSession.metadata=new MediaMetadata({
+      title:t.name||`Track ${currentTrack+1}`,
+      artist:'Phish',
+      album,
+      artwork:[96,128,192,256,384,512].map(sz=>({src:MS_ARTWORK,sizes:`${sz}x${sz}`,type:'image/png'}))
+    });
+  }catch(e){}
+  updatePositionState();
+}
+function updatePositionState(){
+  const ms=navigator.mediaSession;
+  if(!ms||!('setPositionState' in ms)) return;
+  if(!audio.duration||!isFinite(audio.duration)) return;
+  try{ms.setPositionState({duration:audio.duration,playbackRate:audio.playbackRate||1,position:Math.min(audio.currentTime,audio.duration)});}catch(e){}
+}
+// Deliberately NOT preload='auto'. Forcing it makes the browser pull the whole
+// 10-15MB file as fast as it can, which the host is liable to throttle or cut
+// off mid-stream — and a cut stream is what surfaced as songs jumping ahead.
+// Background playback is held by the Media Session, not by preloading, and the
+// browser still buffers ahead normally once playback starts.
+audio.setAttribute('playsinline','');
+audio.addEventListener('play',()=>{
+  if('mediaSession' in navigator) navigator.mediaSession.playbackState='playing';
   document.getElementById('play-pause-btn').classList.remove('paused');
+});
+audio.addEventListener('pause',()=>{
+  if('mediaSession' in navigator) navigator.mediaSession.playbackState='paused';
+});
+audio.addEventListener('loadedmetadata',updatePositionState);
+
+// ── Playback ──────────────────────────────────────────────────────────────────
+let playGen=0;
+function playTrack(i,auto){
+  if(!tracks.length||i<0||i>=tracks.length) return;
+  const gen=++playGen;
+  currentTrack=i;
+  if(!auto) deadSkips=0;        // a deliberate tap always gets a fresh chance
+  // Reassigning src implicitly aborts the previous load. We deliberately do NOT
+  // set src='' first — that briefly drops the media session and is the classic
+  // cause of playback stalling after a track or two when backgrounded.
+  audio.src=tracks[i].url;
+  const p=audio.play();
+  if(p) p.catch(e=>{if(gen!==playGen||e.name==='AbortError') return;});
+  document.getElementById('play-pause-btn').classList.remove('paused');
+  resumeIdx=-1;resumeTries=0;lastPos=0;playFrom=0;   // fresh track, fresh dropout budget
   updateActive();
+  updateMediaSession();
 }
 function togglePlay(){
   if(!tracks.length) return;
+  // Coming back from a failed stream: the element has an error and nothing
+  // loaded, so play() on its own does nothing at all and the button looks dead.
+  // Reload the track and pick up where the signal dropped.
+  if(audio.error||audio.readyState===0){
+    document.getElementById('status-panel').style.display='none';
+    resumeIdx=currentTrack;resumeTries=0;deadSkips=0;
+    resumeCurrent(lastPos,playGen,currentTrack);
+    document.getElementById('play-pause-btn').classList.remove('paused');
+    return;
+  }
   if(audio.paused){audio.play().catch(()=>{});document.getElementById('play-pause-btn').classList.remove('paused');}
   else{audio.pause();document.getElementById('play-pause-btn').classList.add('paused');}
 }
 function prevTrack(){audio.currentTime>3?audio.currentTime=0:playTrack(Math.max(0,currentTrack-1));}
-function nextTrack(){if(currentTrack<tracks.length-1)playTrack(currentTrack+1);}
+function nextTrack(){if(currentTrack<tracks.length-1) playTrack(currentTrack+1);}
+// ── Dropout recovery ──────────────────────────────────────────────────────────
+// The stream host drops connections often over a phone: a tower handoff, a wifi/LTE
+// switch or a 503 burst refuses every request for a few seconds. Counting "no
+// bytes arrived" as "this file is broken" made the setlist walk itself several
+// tracks deep, one skip per refused connection, until the network came back —
+// which is what "it jumps from track 1 and lands somewhere deeper" was.
+//
+// So: a failed connection costs a RETRY OF THE SAME TRACK, never a skip. How far
+// the track got doesn't decide it — dying at 0:00 is the common case, not a sign
+// of a bad file. We only move on once a track has refused MAX_RESUME times, and
+// after MAX_SKIP dead tracks in a row with nothing playing we stop rather than
+// race to the end of the show and lose the listener's place.
+const MAX_RESUME=3, MAX_SKIP=2;
+// playFrom: where the current stream started playing (0, or the resume point).
+// Budgets are earned back by playing *past* it — not by the song's position, which
+// is already past 0:30 the instant a resume seeks back to 4:00.
+let resumeIdx=-1, resumeTries=0, deadSkips=0, lastPos=0, playFrom=0;
+function resumeCurrent(pos,gen,idx){
+  resumeTries++;
+  const go=()=>{
+    if(gen!==playGen||currentTrack!==idx||!tracks[idx]) return;
+    playFrom=pos;
+    audio.src=tracks[idx].url;
+    audio.addEventListener('loadedmetadata',()=>{
+      // The listener outlives a failed reload. By the time it fires the player
+      // may have moved to another track or show — don't drag that one to `pos`.
+      if(gen!==playGen||currentTrack!==idx) return;
+      try{if(pos>0&&pos<(audio.duration||Infinity)) audio.currentTime=pos;}catch(e){}
+    },{once:true});
+    const p=audio.play();
+    if(p) p.catch(()=>{});
+  };
+  // First retry right away, inside the media event: with the screen locked a
+  // timer can be held back until the phone wakes (iOS suspends a silent page),
+  // and most dropouts are a single reset connection that one retry fixes.
+  // Later retries are spaced out rather than hammering: the host throttles a
+  // client that re-requests hard, and a throttled IP fails everything —
+  // including the metadata fetch, which reads as "nothing loads at all".
+  if(resumeTries===1) go(); else setTimeout(go,800*(resumeTries-1));
+}
 audio.addEventListener('ended',()=>{
-  if(currentTrack<tracks.length-1)playTrack(currentTrack+1);
+  // Nothing loaded => this 'ended' was queued for a source we already swapped
+  // out. Acting on it would advance a second time on top of the swap itself.
+  if(audio.readyState===0) return;
+  // A truncated stream surfaces as a premature 'ended'. If we're well short of
+  // the track's real length, that's a dropout, not the end of the song.
+  const dur=audio.duration;
+  if(dur&&isFinite(dur)&&audio.currentTime<dur-2&&resumeTries<MAX_RESUME){
+    if(currentTrack!==resumeIdx){resumeIdx=currentTrack;resumeTries=0;}
+    resumeCurrent(audio.currentTime,playGen,currentTrack);
+    return;
+  }
+  resumeIdx=-1;resumeTries=0;
+  if(currentTrack<tracks.length-1) playTrack(currentTrack+1);
   else document.getElementById('play-pause-btn').classList.add('paused');
 });
 audio.addEventListener('error',()=>{
-  const gen=playGen;
-  if(tracks.length&&currentTrack<tracks.length-1){setTimeout(()=>{if(gen===playGen)playTrack(currentTrack+1);},800);}
-  else{document.getElementById('play-pause-btn').classList.add('paused');}
+  // No error object => stale event from a source we already replaced. Code 1 is
+  // MEDIA_ERR_ABORTED, i.e. our own src swap; neither is the track's fault.
+  if(!audio.error||audio.error.code===1) return;
+  const gen=playGen, idx=currentTrack, pos=audio.currentTime||0;
+  if(idx!==resumeIdx){resumeIdx=idx;resumeTries=0;}
+  // Every error is a dropout until proven otherwise: retry this track.
+  if(resumeTries<MAX_RESUME){resumeCurrent(pos,gen,idx);return;}
+  // Retried and still nothing — this file really is unplayable, so move on. But
+  // a run of dead tracks means the connection is gone, not that the show is.
+  if(++deadSkips>MAX_SKIP){
+    document.getElementById('play-pause-btn').classList.add('paused');
+    setStatus('err','☠ LOST THE SIGNAL<br><span style="font-size:9px">PHISH.IN STOPPED ANSWERING — HIT PLAY TO PICK IT BACK UP</span>');
+    return;
+  }
+  if(tracks.length&&idx<tracks.length-1){
+    setTimeout(()=>{if(gen===playGen&&currentTrack===idx) playTrack(idx+1,true);},800);
+  }else{
+    document.getElementById('play-pause-btn').classList.add('paused');
+  }
 });
-let seeking=false,rafPending=false;
+let seeking=false, rafPending=false;
 audio.addEventListener('timeupdate',()=>{
-  if(!audio.duration||seeking||rafPending) return;
+  if(!audio.duration) return;
+  // Bookkeeping runs on every tick. It used to sit inside the
+  // requestAnimationFrame below — and browsers don't run animation frames for a
+  // locked or hidden page, so with the screen off none of this happened.
+  // A stretch of clean playback earns the dropout budget back, so a long track
+  // that hiccups a few times over 20 minutes doesn't run out of retries.
+  if(resumeTries&&audio.currentTime>playFrom+30){resumeIdx=-1;resumeTries=0;}
+  // Likewise, a track that really got going means the connection came back.
+  if(deadSkips&&audio.currentTime>playFrom+10) deadSkips=0;
+  lastPos=audio.currentTime;   // where to pick up if the stream drops
+  updatePositionState();
+  // Painting waits for a frame, so it's skipped (not queued up) while hidden.
+  if(seeking||rafPending) return;
   rafPending=true;
   requestAnimationFrame(()=>{
-    rafPending=false;if(!audio.duration||seeking)return;
+    rafPending=false;
+    if(!audio.duration||seeking) return;
     const pct=(audio.currentTime/audio.duration*100)+'%';
     document.getElementById('progress-fill').style.width=pct;
     document.getElementById('progress-thumb').style.left=pct;
     document.getElementById('time-display').textContent=`${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
   });
+});
+// A connection that hangs without erroring — common on cellular — fires
+// 'stalled' and nothing else, leaving the player silent indefinitely. When it
+// has actually run dry mid-track, treat it as a dropout. Not before metadata
+// (that's just a slow start) and not while it still has data to play.
+audio.addEventListener('stalled',()=>{
+  if(audio.paused||audio.readyState===0||audio.readyState>=3||!tracks[currentTrack]) return;
+  const idx=currentTrack;
+  if(idx!==resumeIdx){resumeIdx=idx;resumeTries=0;}
+  if(resumeTries<MAX_RESUME) resumeCurrent(audio.currentTime||lastPos,playGen,idx);
 });
 (function(){
   const wrap=document.getElementById('progress-wrap');
@@ -997,26 +1261,59 @@ function formatTime(s){
 function randomShow(){
   if(!ALL_SHOWS.length) return;
   if(guardShowChange(()=>randomShow())) return;
+  clearTimeout(nearestTimer);
   dialShow(ALL_SHOWS[Math.floor(Math.random()*ALL_SHOWS.length)].date);
 }
 
 // ── Share ──────────────────────────────────────────────────────────────────
+// Share what's actually loaded, not whatever is typed in the dial now.
 function shareShow(){
-  const m=document.getElementById('f-m').value;
-  const d=document.getElementById('f-d').value;
-  const y=document.getElementById('f-y').value;
-  if(!m||!d||!y)return;
-  const ms=String(parseInt(m)).padStart(2,'0'),ds=String(parseInt(d)).padStart(2,'0');
-  const url=`${window.location.origin}${window.location.pathname}?date=${y}-${ms}-${ds}`;
+  let date=currentShow&&currentShow.date;
+  if(!date){
+    const m=document.getElementById('f-m').value,d=document.getElementById('f-d').value,y=document.getElementById('f-y').value;
+    if(!m||!d||!y)return;
+    date=`${y}-${String(parseInt(m)).padStart(2,'0')}-${String(parseInt(d)).padStart(2,'0')}`;
+  }
+  const url=`${window.location.origin}${window.location.pathname}?date=${date}`;
   navigator.clipboard.writeText(url).then(()=>{
     const t=document.getElementById('share-toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);
   }).catch(()=>{prompt('Copy this link:',url);});
 }
 
+// ── Per-show page metadata ─────────────────────────────────────────────────
+// Every show lives at /?date=YYYY-MM-DD. Without this they all share the
+// homepage's title/description and search engines index none of them. Shows
+// in shows.json also have a static page at /show/<date> (build_pages.py), so
+// the canonical points there and the two URLs don't split ranking.
+const BASE_TITLE=document.title;
+function setMeta(sel,attr,val){const el=document.querySelector(sel);if(el)el.setAttribute(attr,val);}
+function setShowSeo(show,m,d,y,trackCount){
+  const MONTHS_LONG=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const where=[show.venue,show.city].filter(Boolean).join(', ');
+  const dateLabel=`${MONTHS_LONG[m-1]} ${d}, ${y}`;
+  const title=`Phish ${dateLabel}${where?' — '+where:''} | DIAL·A·PHISH`;
+  const desc=`Stream the Phish concert from ${dateLabel}${where?` at ${where}`:''}. ${trackCount} tracks, free from phish.in.`;
+  const url=SHOW_MAP[show.date]?`https://dialaphish.com/show/${show.date}`:`https://dialaphish.com/?date=${show.date}`;
+  document.title=title;
+  setMeta('meta[name="description"]','content',desc);
+  setMeta('link[rel="canonical"]','href',url);
+  setMeta('meta[property="og:url"]','content',url);
+  setMeta('meta[property="og:title"]','content',title);
+  setMeta('meta[property="og:description"]','content',desc);
+  setMeta('meta[name="twitter:title"]','content',title);
+  setMeta('meta[name="twitter:description"]','content',desc);
+  // Keep the address bar on the show you're hearing, so reload/copy lands on
+  // the same night. Relative so it works on preview deploys and localhost.
+  try{history.replaceState(null,'',`?date=${show.date}`);}catch(e){}
+}
+
 // ── URL date param ─────────────────────────────────────────────────────────
+// ?date=YYYY-MM-DD opens a show; &track=N starts it at that track.
+let pendingTrack=null;
 function checkUrlDate(){
   const params=new URLSearchParams(window.location.search);
   const date=params.get('date');if(!date)return false;
+  const t=parseInt(params.get('track'),10);pendingTrack=t>0?t:null;
   const parts=date.split('-');if(parts.length!==3)return false;
   const[y,m,d]=parts.map(Number);if(!y||!m||!d)return false;
   document.getElementById('f-m').value=m;

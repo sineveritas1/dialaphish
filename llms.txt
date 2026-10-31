@@ -1,0 +1,18 @@
+# Dial-A-Phish
+
+> Stream every Phish live show with audio on phish.in — free. Enter any date from 1983 to the latest tour and that night's concert plays straight from phish.in.
+
+Dial-A-Phish is a web player for the Phish live archive: every show phish.in has audio for, with setlists, random show, saved favourites, previous/next show, and single-track or whole-show downloads. No accounts, no ads. Audio is served by phish.in.
+
+## Pages
+
+- [Player](https://dialaphish.com/): enter a date and stream the show
+- [Open a show in the player](https://dialaphish.com/?date=1997-11-17): any date as `?date=YYYY-MM-DD`
+- [Show page](https://dialaphish.com/show/1997-11-17): one concert's venue, city, setlist and play link; any date as `/show/YYYY-MM-DD`
+- [Year page](https://dialaphish.com/year/1997): every show from one year; any year as `/year/YYYY`
+- [Sitemap](https://dialaphish.com/sitemap.xml): every year and show page
+
+## Data
+
+- [Show index](https://dialaphish.com/shows.json): JSON of every date with venue, city and phish.in show id
+- [phish.in](https://phish.in): the source of all audio

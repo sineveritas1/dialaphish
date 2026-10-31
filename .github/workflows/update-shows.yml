@@ -1,16 +1,25 @@
 name: Update Phish Show Database
 
 on:
-  # Run every Monday at 6am UTC — picks up weekend shows
+  # Every Monday 06:17 UTC — picks up weekend shows (off the hour: :00 runs get delayed)
   schedule:
-    - cron: '0 6 * * 1'
-  # Also allow manual trigger from GitHub Actions UI
+    - cron: '17 6 * * 1'
   workflow_dispatch:
+
+# The default GITHUB_TOKEN is read-only, so every run used to fetch the new
+# shows fine and then fail at `git push`. This lets it commit.
+permissions:
+  contents: write
+
+concurrency:
+  group: update-shows
+  cancel-in-progress: false
 
 jobs:
   update-shows:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 30
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -20,19 +29,20 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate shows.json
+      - name: Refresh shows.json
         run: python generate_phish.py
 
-      - name: Check for changes
-        id: check
-        run: |
-          git diff --quiet shows.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+      - name: Fetch setlists for new shows
+        run: python build_setlists.py
+
+      - name: Rebuild show/year pages + sitemap
+        run: python build_pages.py
 
       - name: Commit and push if changed
-        if: steps.check.outputs.changed == 'true'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add shows.json
-          git commit -m "Auto-update shows.json [$(date '+%Y-%m-%d')]"
+          git add -A shows.json setlists.json show year pages.css sitemap.xml
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git commit -m "Auto-update shows [$(date -u '+%Y-%m-%d')]"
           git push
